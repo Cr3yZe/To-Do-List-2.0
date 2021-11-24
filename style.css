@@ -1,0 +1,179 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--main-font-color);
+}
+
+:root {
+    --main-background-color: rgb(1, 2, 92);
+    --main-task-color: rgb(255, 255, 255);
+    --main-input-color: rgba(255, 255, 255);
+    --main-background-color-tools : rgb(229, 226, 226);
+    /* --main-background-color-check-card : rgba(3, 252, 11, 0.8); */
+    --main-font-color: rgb(40,40,40);
+    --main-font-family: 'Roboto Slab', serif;
+}
+
+body {
+    background-color: var(--main-background-color);
+    font-family: var(--main-font-family);
+}
+
+.div_title {
+    /* border: 2px solid white; */
+    margin: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 80px;
+    /* border-bottom: 1px solid white; */
+}
+
+.h1_title {
+    color: rgba(255, 255, 255);
+    font-size: 3.5em;
+}
+
+.frame {
+    width: 95%;
+    /* border: 1px solid white; */
+    margin: auto;
+    padding: 10px;
+}
+
+.inputs_frame {
+    margin: auto;
+}
+
+#input {
+    background-color: var(--main-input-color);
+    font-family: var(--main-font-family);
+    width: 100%;
+    padding: 10px 5px 10px 30px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: none;
+}
+
+#search {
+    background-color: var(--main-input-color);
+    font-family: var(--main-font-family);
+    width: 100%;
+    padding: 10px 5px 10px 30px;
+    margin-bottom: 50px;
+    border-radius: 8px;
+    border: none;
+}
+
+.wall_frame {
+    width: 100%;
+    overflow: hidden;
+    display: grid;
+}
+
+.ul_class {
+    width: 100%;
+    list-style-type: none;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.li_class {
+    width: 100%;
+    /* background-color: red; */
+    background-color: var(--main-task-color);
+    margin-bottom: 20px;
+    border-radius: 8px 0 0 8px;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 88%;
+    word-wrap: break-word;
+}
+
+.content_frame {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    padding: 20px 40px 20px 10px;
+}
+
+.content {
+    text-align: justify;
+    place-self: center;
+    font-size: 1.5em;
+}
+
+.tools_frame {
+    background-color: var(--main-background-color-tools);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    display: grid !important;
+    grid-template-rows: 50% 50%;
+}
+
+.check_icon {
+    place-self: center;
+    grid-row: 1 / 2;
+    color: black;
+    transition: 250ms;
+}
+
+.check_icon:hover {
+    color:#56f559;
+}
+
+.trash_icon {
+    place-self: center;
+    grid-row: 2 / 3;
+    color: black;
+    transition: 250ms;
+}
+
+.trash_icon:hover {
+    color: #e20307;
+}
+
+@media only screen and (min-width: 600px) {
+    .frame {
+        width: 600px;
+    }
+}
+
+/* Take the tools_frame class from the left of the task and put it right under 
+the task when the rezolution get under 330px */
+@media only screen and (max-width: 400px) {
+    .li_class {
+        width: 100%;
+        border-radius: 0;
+        margin-bottom: 60px;
+        display: block;
+    }
+
+    .content_frame {
+        padding: 10px 30px;
+    }
+
+    .tools_frame {
+        width: 100%;
+        height: 40px;
+        border-radius: 0 0 8px 8px;
+        position: absolute;
+        top: 100%;
+        display: grid;
+        grid-template-rows: 0;
+        grid-template-columns: 50% 50%;
+    }
+
+    .check_icon {
+        grid-row: none;
+        grid-column: 1 / 2;
+        place-self: center;
+    }
+
+    .trash_icon {
+        grid-row: none;
+        grid-column: 2 / 3;
+        place-self: center;
+    }
+}
