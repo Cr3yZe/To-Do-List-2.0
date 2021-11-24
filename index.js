@@ -113,6 +113,8 @@ function submit(e){
 
         console.log(tasks);
 
+        //Problem: All the contet are used to make tasks and the tasks that are 
+        //already created are again created
         tasks.forEach(function(x, y){
             console.log(`${y+1}: ${x}`);
             createTask(y, x)
