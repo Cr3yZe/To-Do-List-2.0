@@ -26,11 +26,9 @@ function events() {
 
     //Test animation on li.
     globalUlVariable.addEventListener('click', animationRemove);
-
-    //Animate the task when check it.
-    globalUlVariable.addEventListener('click', checkTheTask);
 }
 
+//Get the tasks from LS and display them on the UI
 function getFromLocaleStorage() {
     let tasks;
 
@@ -82,41 +80,72 @@ function submit(e){
     if(inputValue === '') {
         window.alert('Please enter a task!')
     } else {
-        //Create the task and then
-        createTask(inputValue);
         //save it to the locale storage
         storeTaskToLocalStorage(inputValue);
     }
-    
 
-    // Create the task card on the UI
-    function createTask(value) {
-        const li = document.createElement('li');
-        li.className = 'li_class';
-        globalUlVariable.appendChild(li);
-        
-        const div = document.createElement('div');
-        div.className = 'content_frame';
-        li.appendChild(div);
-        
-        const content = document.createElement('p');
-        content.className = 'content'
-        content.appendChild(document.createTextNode(value))
-        div.appendChild(content)
-        
-        const tools = document.createElement('div');
-        tools.className = 'tools_frame'
-        li.appendChild(tools);
-        
-        const tick = document.createElement('i')
-        tick.classList = 'check_icon bx bx-check bx-md';
-        tools.appendChild(tick);
-        
-        const trash = document.createElement('i');
-        trash.classList = 'trash_icon bx bx-trash bx-sm';
-        tools.appendChild(trash);
+    //Set the task's value to locale storage
+    function storeTaskToLocalStorage(value) {
+        let tasks;
+    
+        if (localStorage.getItem('tasks') === null) {
+            tasks = [];
+        } else {
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+        }
+    
+        tasks.push(value);
+    
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        console.log(localStorage.getItem('tasks'));
     }
 
+    createTaskOnUI();
+
+    function createTaskOnUI(){
+        let tasks;
+
+        if(localStorage.getItem('tasks') === null){
+            tasks = [];
+        } else{
+            tasks = JSON.parse(localStorage.getItem('tasks'))
+        }
+
+        console.log(tasks);
+
+        tasks.forEach(function(x, y){
+            console.log(`${y+1}: ${x}`);
+            createTask(y, x)
+        })
+
+
+        function createTask(value, index) {
+            const li = document.createElement('li');
+            li.className = `li_class${value+1}`;
+            globalUlVariable.appendChild(li);
+            
+            const div = document.createElement('div');
+            div.className = 'content_frame';
+            li.appendChild(div);
+            
+            const content = document.createElement('p');
+            content.className = 'content'
+            content.appendChild(document.createTextNode(index))
+            div.appendChild(content)
+            
+            const tools = document.createElement('div');
+            tools.className = 'tools_frame'
+            li.appendChild(tools);
+            
+            const tick = document.createElement('i')
+            tick.classList = 'check_icon bx bx-check bx-md';
+            tools.appendChild(tick);
+            
+            const trash = document.createElement('i');
+            trash.classList = 'trash_icon bx bx-trash bx-sm';
+            tools.appendChild(trash);
+        }
+    }
 
     //Clear the user's input
     input.value = '';
@@ -125,23 +154,7 @@ function submit(e){
     e.preventDefault();
 }
 
-//Set the task's value to locale storage
-function storeTaskToLocalStorage(value) {
-    let tasks;
-
-    if (localStorage.getItem('tasks') === null) {
-        tasks = [];
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'));
-    }
-
-    tasks.push(value);
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-//SOMETHING TO ADD!!!!!!! Make a function for the remove all 
-//tasks button that make a pop up when there is no task to be removed.
+//Remove all the tasks
 function removeAllTasks() {
     let allChidren;
 
@@ -161,19 +174,7 @@ function removeAllTasks() {
             //Delete the key 'tasks' from the LS to not load again when
             //the browser have been opened.
             localStorage.removeItem('tasks');
-        } else {
-    
         }
-    }
-}
-
-function checkTheTask(e){
-    let object = e.target;
-    let contentFrame;
-    
-    if(object.classList.contains('check_icon')){
-        contentFrame = object.parentElement.parentElement.children[0];
-        contentFrame.style.backgroundColor = "rgba(3, 252, 11, 0.8)";
     }
 }
 
@@ -183,16 +184,16 @@ function animationRemove(e){
     let content = object.parentElement.parentElement.children[0].children[0].innerText;
 
     if(object.classList.contains('trash_icon')){
-        animationProces();
+        animationProcess();
     }
     
-    function animationProces(){
+    function animationProcess(){
         xPosition += 50;
         
         object.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
         
         if(Math.abs(xPosition) <= 900){
-            requestAnimationFrame(animationProces);
+            requestAnimationFrame(animationProcess);
         } else{
             removeTaskFromUI(object);
             removeTasksFromLocaleStorage(content);
