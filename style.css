@@ -7,10 +7,10 @@
 
 :root {
     --main-background-color: rgb(1, 2, 92);
-    --main-task-color: rgb(255, 255, 255);
     --main-input-color: rgba(255, 255, 255);
     --main-background-color-tasks: rgb(245,245,245);
     --main-font-color: rgb(40,40,40);
+    --mian-background-color-tools: rgb(3, 152, 252);
     --main-font-family: 'Roboto Slab', serif;
 }
 
@@ -19,7 +19,7 @@ body {
     font-family: var(--main-font-family);
 }
 
-.div_title {
+.div-title {
     /* border: 2px solid white; */
     margin: auto;
     margin-bottom: 10px;
@@ -28,26 +28,27 @@ body {
     /* border-bottom: 1px solid white; */
 }
 
-.h1_title {
+.h1-title {
     color: rgba(255, 255, 255);
     font-size: 3.5em;
 }
 
 .frame {
-    width: 95%;
+    width: 100%;
     /* border: 1px solid white; */
     margin: auto;
     padding: 10px;
 }
 
-.inputs_frame {
+.inputs-frame {
     margin: auto;
+    text-align: center;
 }
 
 #input {
     background-color: var(--main-input-color);
     font-family: var(--main-font-family);
-    width: 100%;
+    width:95%;
     padding: 10px 5px 10px 30px;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -57,40 +58,45 @@ body {
 #search {
     background-color: var(--main-input-color);
     font-family: var(--main-font-family);
-    width: 100%;
+    width:95%;
     padding: 10px 5px 10px 30px;
     margin-bottom: 50px;
     border-radius: 8px;
     border: none;
 }
 
-.wall_frame {
+.wall-frame {
     width: 100%;
     overflow: hidden;
 }
 
-.ul_class {
+.ul-class {
     width: 100%;
     list-style-type: none;
     margin: auto;
     margin-bottom: 10px;
 }
 
-.li_class {
-    width: 100%;
+.li-class {
+    width: 95%;
+    margin: auto;
     /* background-color: red; */
     background-color: var(--main-background-color-tasks);
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     border-radius: 8px;
-    display: grid !important;
-    grid-template-columns: auto 50px;
     word-wrap: break-word;
+    position: relative;
+    transition: 20ms;
 }
 
-.content_frame {
+.li-class:hover {
+    transform: scale(calc(1 + 0.02));
+}
+
+.content-frame {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    padding: 20px 20px 20px 20px;
+    padding: 20px 20px 30px 20px;
 }
 
 .content {
@@ -100,38 +106,93 @@ body {
 }
 
 .menu-icon-div {
-    background-color: greenyellow;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    display: flex;
-    align-items: center;
+    /* background-color: greenyellow; */
+    position: absolute;
+    display: grid;
     justify-content: center;
+    bottom: 0px;
+    right: 0;
+    left: 0;
+}
+
+.menu-icon-frame {
+    width: 100px;
+    background-color: var(--mian-background-color-tools);
+    /* border-radius: 5px; */
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    z-index: 1;
+    transition: 150ms linear;
+}
+
+.menu-icon-frame:hover {
+    width: 150px;
+    background-color: var(--mian-background-color-tools);
+}
+
+.drop-down {
+    color: black;
+    transition: 250ms;
+    position: relative
+}
+
+.drop-down:hover {
+    color: white;
+}
+
+.tools-frame {
+    position: absolute;
+    width: 100%;
+    bottom: -35px;
+    display: grid;
+    grid-template-columns: 15% auto 15%;
+    text-align: center;
+}
+
+.tools {
+    background-color: var(--mian-background-color-tools);
     grid-column: 2 / 3;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 25% 25% 25% 25%;
 }
 
-/* .check_icon {
-    place-self: center;
-    grid-row: 1 / 2;
-    color: black;
+.check-icon {
+    grid-column: 1 / 2;
     transition: 250ms;
 }
 
-.check_icon:hover {
-    color:#56f559;
+.check-icon:hover {
+    color: greenyellow;
 }
 
-.trash_icon {
-    place-self: center;
-    grid-row: 2 / 3;
-    color: black;
+.rocket-icon {
+    grid-column: 2 / 3;
     transition: 250ms;
 }
 
-.trash_icon:hover {
-    color: #e20307;
-} */
+.rocket-icon:hover {
+    color: red;
+}  
+
+.star-icon {
+    grid-column: 3 / 4;
+    transition: 250ms;
+}
+
+.star-icon:hover {
+    color: yellow;
+}
+
+.comment-icon {
+    grid-column: 4 / 5;
+    transition: 250ms;
+}
+
+.comment-icon:hover {
+    color: purple;
+}
 
 @media only screen and (min-width: 400px) {
     .frame {

@@ -1,7 +1,7 @@
 // Global variables
 const html = document;
-const form = document.getElementById('input_form');
-const globalUlVariable = document.querySelector('ul.ul_class');
+const form = document.getElementById('input-form');
+const globalUlVariable = document.querySelector('ul.ul-class');
 const removeAllTasksButton = document.querySelector('button.remove-tasks');
 const input = document.getElementById('input');
 
@@ -43,31 +43,59 @@ function getFromLocaleStorage() {
     }
 
     function createTask(index, value) {
+        //Create the li
         const li = document.createElement('li');
-        li.className = 'li_class';
+        li.className = 'li-class';
         li.setAttribute('id', `li-id${index+1}`);
         globalUlVariable.appendChild(li);
         
+        //Create the first div
         const div = document.createElement('div');
-        div.className = 'content_frame';
+        div.className = 'content-frame';
         li.appendChild(div);
         
         const content = document.createElement('p');
-        content.className = 'content'
+        content.className = 'content';
         content.appendChild(document.createTextNode(value))
         div.appendChild(content)
+
+        //Create the second div
+        const menuIconDiv = document.createElement('div');
+        menuIconDiv.className = 'menu-icon-div';
+        li.appendChild(menuIconDiv)
+
+        const menuIconFrame = document.createElement('div');
+        menuIconFrame.className = 'menu-icon-frame';
+        menuIconDiv.appendChild(menuIconFrame);
+
+        const dropDown = document.createElement('i');
+        dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs bx-tada-hover';
+        menuIconFrame.appendChild(dropDown);
         
+        //Create tht third div
+        const toolsFrame = document.createElement('div');
+        toolsFrame.className = 'tools-frame';
+        li.appendChild(toolsFrame);
+
         const tools = document.createElement('div');
-        tools.className = 'tools_frame'
-        li.appendChild(tools);
+        tools.className = 'tools';
+        toolsFrame.appendChild(tools);
         
-        const tick = document.createElement('i')
-        tick.classList = 'check_icon bx bx-check bx-md';
-        tools.appendChild(tick);
+        const checkIcon = document.createElement('i')
+        checkIcon.classList = 'check-icon bx bx-check bx-md bx-tada';
+        tools.appendChild(checkIcon);
         
-        const trash = document.createElement('i');
-        trash.classList = 'trash_icon bx bxs-rocket bx-sm';
-        tools.appendChild(trash);
+        const rocketIcon = document.createElement('i');
+        rocketIcon.classList = 'rocket-icon bx bxs-rocket bx-sm bx-tada';
+        tools.appendChild(rocketIcon);
+
+        const starIcon = document.createElement('i');
+        starIcon.classList = 'star-icon bx bxs-star bx-sm bx-tada';
+        tools.appendChild(starIcon);
+
+        const commnetIcon = document.createElement('i');
+        commnetIcon.classList = 'comment-icon bx bxs-comment-detail bx-sm bx-tada';
+        tools.appendChild(commnetIcon);
     }
 
 }
@@ -117,31 +145,59 @@ function submit(e){
         })
 
         function createTask(index, value) {
+            //Create the li
             const li = document.createElement('li');
-            li.className = 'li_class';
+            li.className = 'li-class';
             li.setAttribute('id', `li-id${index+1}`);
             globalUlVariable.appendChild(li);
             
+            //Create the first div
             const div = document.createElement('div');
-            div.className = 'content_frame';
+            div.className = 'content-frame';
             li.appendChild(div);
             
             const content = document.createElement('p');
-            content.className = 'content'
+            content.className = 'content';
             content.appendChild(document.createTextNode(value))
             div.appendChild(content)
+    
+            //Create the second div
+            const menuIconDiv = document.createElement('div');
+            menuIconDiv.className = 'menu-icon-div';
+            li.appendChild(menuIconDiv)
+    
+            const menuIconFrame = document.createElement('div');
+            menuIconFrame.className = 'menu-icon-frame';
+            menuIconDiv.appendChild(menuIconFrame);
+    
+            const dropDown = document.createElement('i');
+            dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs bx-tada-hover';
+            menuIconFrame.appendChild(dropDown);
             
+            //Create tht third div
+            const toolsFrame = document.createElement('div');
+            toolsFrame.className = 'tools-frame';
+            li.appendChild(toolsFrame);
+    
             const tools = document.createElement('div');
-            tools.className = 'tools_frame'
-            li.appendChild(tools);
+            tools.className = 'tools';
+            toolsFrame.appendChild(tools);
             
-            const tick = document.createElement('i')
-            tick.classList = 'check_icon bx bx-check bx-md';
-            tools.appendChild(tick);
+            const checkIcon = document.createElement('i')
+            checkIcon.classList = 'check-icon bx bx-check bx-md bx-tada';
+            tools.appendChild(checkIcon);
             
-            const trash = document.createElement('i');
-            trash.classList = 'trash_icon bx bxs-rocket bx-sm';
-            tools.appendChild(trash);
+            const rocketIcon = document.createElement('i');
+            rocketIcon.classList = 'rocket-icon bx bxs-rocket bx-sm bx-tada';
+            tools.appendChild(rocketIcon);
+    
+            const starIcon = document.createElement('i');
+            starIcon.classList = 'star-icon bx bxs-star bx-sm bx-tada';
+            tools.appendChild(starIcon);
+    
+            const commnetIcon = document.createElement('i');
+            commnetIcon.classList = 'comment-icon bx bxs-comment-detail bx-sm bx-tada';
+            tools.appendChild(commnetIcon);
         }
     }
 
@@ -156,12 +212,27 @@ function submit(e){
 function removeAllTasks() {
     //Make an array with all the children of the ul(meaning all the li tags).
     let allChidren = Array.from(globalUlVariable.children);
-
+    console.log(allChidren);
+    //Variable vor animation process when all tasks are deleted alltogheter.
+    let xPosition = 0;
+    
     if(allChidren.length === 0){
         window.alert('There is no task to be deleted');
     } else{
         if(confirm('Are you sure you wanna delete all the tasks?') === true) {
-            //Loop through the entier array and delete every index,
+            removeAllTasksAnimation(allChidren);
+        }
+        
+        function removeAllTasksAnimation(){
+            xPosition += 50;
+
+            globalUlVariable.style.transform = `translate3d(${xPosition}px, 0, 0)`
+
+            if(Math.abs(xPosition) <= 900){
+                requestAnimationFrame(removeAllTasksAnimation);
+            } else{
+                console.log(true);
+             //Loop through the entier array and delete every index,
             //one by one.
             allChidren.forEach(function(x){
                 globalUlVariable.removeChild(x);
@@ -170,6 +241,9 @@ function removeAllTasks() {
             //Delete the key 'tasks' from the LS to not load again when
             //the browser have been opened.
             localStorage.removeItem('tasks');
+            let xPosition = 0;
+            globalUlVariable.style.transform = `translate3d(${xPosition}px, 0, 0)`
+            }
         }
     }
 }
@@ -177,16 +251,16 @@ function removeAllTasks() {
 function RemoveOneTask(e){    
     let xPosition = 0;
     let object = e.target;
-    let content = object.parentElement.parentElement.children[0].children[0].innerText;
+    let content = object.parentElement.parentElement.parentElement.children[0].children[0].innerText;
     
-    if(object.classList.contains('trash_icon')){
+    if(object.classList.contains('rocket-icon')){
         animationProcess();
     }
     
     function animationProcess(){
         xPosition += 50;
         
-        object.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
+        object.parentElement.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
         
         if(Math.abs(xPosition) <= 900){
             requestAnimationFrame(animationProcess);
@@ -198,7 +272,7 @@ function RemoveOneTask(e){
     }
 
     function removeTaskFromUI(taskToRemove){
-        taskToRemove.parentElement.parentElement.remove();
+        taskToRemove.parentElement.parentElement.parentElement.remove();
     }
 
     function removeTasksFromLocaleStorage(task){
@@ -252,31 +326,59 @@ function RemoveOneTask(e){
             })
     
             function createTask(index, value) {
+                //Create the li
                 const li = document.createElement('li');
-                li.className = 'li_class';
+                li.className = 'li-class';
                 li.setAttribute('id', `li-id${index+1}`);
                 globalUlVariable.appendChild(li);
                 
+                //Create the first div
                 const div = document.createElement('div');
-                div.className = 'content_frame';
+                div.className = 'content-frame';
                 li.appendChild(div);
                 
                 const content = document.createElement('p');
-                content.className = 'content'
+                content.className = 'content';
                 content.appendChild(document.createTextNode(value))
                 div.appendChild(content)
+        
+                //Create the second div
+                const menuIconDiv = document.createElement('div');
+                menuIconDiv.className = 'menu-icon-div';
+                li.appendChild(menuIconDiv)
+        
+                const menuIconFrame = document.createElement('div');
+                menuIconFrame.className = 'menu-icon-frame';
+                menuIconDiv.appendChild(menuIconFrame);
+        
+                const dropDown = document.createElement('i');
+                dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs bx-tada-hover';
+                menuIconFrame.appendChild(dropDown);
                 
+                //Create tht third div
+                const toolsFrame = document.createElement('div');
+                toolsFrame.className = 'tools-frame';
+                li.appendChild(toolsFrame);
+        
                 const tools = document.createElement('div');
-                tools.className = 'tools_frame'
-                li.appendChild(tools);
+                tools.className = 'tools';
+                toolsFrame.appendChild(tools);
                 
-                const tick = document.createElement('i')
-                tick.classList = 'check_icon bx bx-check bx-md';
-                tools.appendChild(tick);
+                const checkIcon = document.createElement('i')
+                checkIcon.classList = 'check-icon bx bx-check bx-md bx-tada';
+                tools.appendChild(checkIcon);
                 
-                const trash = document.createElement('i');
-                trash.classList = 'trash_icon bx bxs-rocket bx-sm';
-                tools.appendChild(trash);
+                const rocketIcon = document.createElement('i');
+                rocketIcon.classList = 'rocket-icon bx bxs-rocket bx-sm bx-tada';
+                tools.appendChild(rocketIcon);
+        
+                const starIcon = document.createElement('i');
+                starIcon.classList = 'star-icon bx bxs-star bx-sm bx-tada';
+                tools.appendChild(starIcon);
+        
+                const commnetIcon = document.createElement('i');
+                commnetIcon.classList = 'comment-icon bx bxs-comment-detail bx-sm bx-tada';
+                tools.appendChild(commnetIcon);
             }
         }
     }
