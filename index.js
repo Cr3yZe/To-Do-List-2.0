@@ -232,7 +232,7 @@ function removeAllTasks() {
         }
         
         function removeAllTasksAnimation(){
-            xPosition += 100;
+            xPosition += 50;
 
             globalUlVariable.style.transform = `translate3d(${xPosition}px, 0, 0)`
 
@@ -268,7 +268,7 @@ function RemoveOneTask(e){
     }
     
     function animationProcess(){
-        xPosition += 100;
+        xPosition += 50;
         
         object.parentElement.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
         
