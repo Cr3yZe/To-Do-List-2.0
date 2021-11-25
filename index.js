@@ -37,14 +37,15 @@ function getFromLocaleStorage() {
     //into an array to create a task with every value.
     } else {
         tasks = JSON.parse(localStorage.getItem('tasks'));
-        tasks.forEach(function(x){
-            createTask(x);
+        tasks.forEach(function(x, y){
+            createTask(y, x);
         })
     }
 
-    function createTask(value) {
+    function createTask(index, value) {
         const li = document.createElement('li');
         li.className = 'li_class';
+        li.setAttribute('id', `li-id${index+1}`);
         globalUlVariable.appendChild(li);
         
         const div = document.createElement('div');
@@ -79,6 +80,7 @@ function submit(e){
     } else {
         //save it to the locale storage
         storeTaskToLocalStorage(inputValue);
+        createTaskOnUI();
     }
 
     //Set the task's value to locale storage
@@ -95,8 +97,6 @@ function submit(e){
     
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
-
-    createTaskOnUI();
 
     function createTaskOnUI(){
         let tasks;
@@ -154,10 +154,8 @@ function submit(e){
 
 //Remove all the tasks
 function removeAllTasks() {
-    let allChidren;
-
     //Make an array with all the children of the ul(meaning all the li tags).
-    allChidren = Array.from(globalUlVariable.children);
+    let allChidren = Array.from(globalUlVariable.children);
 
     if(allChidren.length === 0){
         window.alert('There is no task to be deleted');
@@ -180,7 +178,7 @@ function RemoveOneTask(e){
     let xPosition = 0;
     let object = e.target;
     let content = object.parentElement.parentElement.children[0].children[0].innerText;
-
+    
     if(object.classList.contains('trash_icon')){
         animationProcess();
     }
@@ -195,6 +193,7 @@ function RemoveOneTask(e){
         } else{
             removeTaskFromUI(object);
             removeTasksFromLocaleStorage(content);
+            removeAndGetFromLS(globalUlVariable);
         }
     }
 
@@ -223,5 +222,62 @@ function RemoveOneTask(e){
 
         //After the index was removed from the array set back the LS;
         localStorage.setItem('tasks', JSON.stringify(tasks))
+    }
+
+    function removeAndGetFromLS(e){
+        removeTask(e);
+        getFromLS();
+
+        function removeTask(e){
+            let allChidren = Array.from(e.children);
+
+            allChidren.forEach(function(x){
+                e.removeChild(x);
+            })
+        }
+
+        function getFromLS(){
+            let tasks;
+
+            if(localStorage.getItem('tasks') === null){
+                tasks = [];
+            } else{
+                tasks = JSON.parse(localStorage.getItem('tasks'))
+            }
+    
+            console.log(tasks);
+    
+            tasks.forEach(function(x, y){
+                createTask(y, x);
+            })
+    
+            function createTask(index, value) {
+                const li = document.createElement('li');
+                li.className = 'li_class';
+                li.setAttribute('id', `li-id${index+1}`);
+                globalUlVariable.appendChild(li);
+                
+                const div = document.createElement('div');
+                div.className = 'content_frame';
+                li.appendChild(div);
+                
+                const content = document.createElement('p');
+                content.className = 'content'
+                content.appendChild(document.createTextNode(value))
+                div.appendChild(content)
+                
+                const tools = document.createElement('div');
+                tools.className = 'tools_frame'
+                li.appendChild(tools);
+                
+                const tick = document.createElement('i')
+                tick.classList = 'check_icon bx bx-check bx-md';
+                tools.appendChild(tick);
+                
+                const trash = document.createElement('i');
+                trash.classList = 'trash_icon bx bxs-rocket bx-sm';
+                tools.appendChild(trash);
+            }
+        }
     }
 }
