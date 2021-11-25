@@ -25,7 +25,7 @@ function events() {
     globalUlVariable.addEventListener('click', RemoveOneTask);
 }
 
-//Get the tasks from LS and display them on the UI
+//Get the tasks from LS and display them on the UI always when the site is opened.
 function getFromLocaleStorage() {
     let tasks;
 
@@ -46,6 +46,7 @@ function getFromLocaleStorage() {
         //Create the li
         const li = document.createElement('li');
         li.className = 'li-class';
+        //Set a different id using the index of the loop.
         li.setAttribute('id', `li-id${index+1}`);
         globalUlVariable.appendChild(li);
         
@@ -103,11 +104,13 @@ function getFromLocaleStorage() {
 function submit(e){
     let inputValue = input.value;
 
+    //The user will be alerted if he doesn't type anything in.
     if(inputValue === '') {
         window.alert('Please enter a task!')
     } else {
         //save it to the locale storage
         storeTaskToLocalStorage(inputValue);
+        //after the task is saved in LS it will be automatically created on the UI
         createTaskOnUI();
     }
 
@@ -129,6 +132,7 @@ function submit(e){
     function createTaskOnUI(){
         let tasks;
 
+        //Get all the tasks form LS 
         if(localStorage.getItem('tasks') === null){
             tasks = [];
         } else{
@@ -137,6 +141,8 @@ function submit(e){
 
         console.log(tasks);
 
+        //Loop through the entier array and make up the tasks only with the last value that
+        //was added to LS
         tasks.forEach(function(x, y){
             if(tasks.length === y+1){
                 createTask(y, x);
@@ -144,10 +150,12 @@ function submit(e){
             }
         })
 
+        //Create the entier li tag
         function createTask(index, value) {
             //Create the li
             const li = document.createElement('li');
             li.className = 'li-class';
+            //Set a different id using the index of the loop.
             li.setAttribute('id', `li-id${index+1}`);
             globalUlVariable.appendChild(li);
             
@@ -224,7 +232,7 @@ function removeAllTasks() {
         }
         
         function removeAllTasksAnimation(){
-            xPosition += 50;
+            xPosition += 100;
 
             globalUlVariable.style.transform = `translate3d(${xPosition}px, 0, 0)`
 
@@ -248,9 +256,11 @@ function removeAllTasks() {
     }
 }
 
-function RemoveOneTask(e){    
+function RemoveOneTask(e){
+    //Variable that will be used to create the animation of the deletion process.    
     let xPosition = 0;
     let object = e.target;
+    //Save the content of the task that will be deleted.
     let content = object.parentElement.parentElement.parentElement.children[0].children[0].innerText;
     
     if(object.classList.contains('rocket-icon')){
@@ -258,7 +268,7 @@ function RemoveOneTask(e){
     }
     
     function animationProcess(){
-        xPosition += 50;
+        xPosition += 100;
         
         object.parentElement.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
         
@@ -267,6 +277,8 @@ function RemoveOneTask(e){
         } else{
             removeTaskFromUI(object);
             removeTasksFromLocaleStorage(content);
+            //After the task is deleted from UI and LS delet all the tasks on the UI and
+            //make them up again to reset the number of the ids on the DOM.
             removeAndGetFromLS(globalUlVariable);
         }
     }
@@ -299,10 +311,12 @@ function RemoveOneTask(e){
     }
 
     function removeAndGetFromLS(e){
-        removeTask(e);
+        //The function that delet the task from the UI.
+        removeTasks(e);
+        //The function that recreate all the tasks on the UI from LS.
         getFromLS();
 
-        function removeTask(e){
+        function removeTasks(e){
             let allChidren = Array.from(e.children);
 
             allChidren.forEach(function(x){
