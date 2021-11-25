@@ -20,12 +20,9 @@ function events() {
 
     //Remove all the the tasks from the UI and Local Storage.
     removeAllTasksButton.addEventListener('click', removeAllTasks);
-    
-    //Remove a specific task from list
-    // globalUlVariable.addEventListener('click', removeTask);
 
-    //Test animation on li.
-    globalUlVariable.addEventListener('click', animationRemove);
+    //Remove task from the UI
+    globalUlVariable.addEventListener('click', RemoveOneTask);
 }
 
 //Get the tasks from LS and display them on the UI
@@ -68,7 +65,7 @@ function getFromLocaleStorage() {
         tools.appendChild(tick);
         
         const trash = document.createElement('i');
-        trash.classList = 'trash_icon bx bx-trash bx-sm';
+        trash.classList = 'trash_icon bx bxs-rocket bx-sm';
         tools.appendChild(trash);
     }
 
@@ -97,7 +94,6 @@ function submit(e){
         tasks.push(value);
     
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        console.log(localStorage.getItem('tasks'));
     }
 
     createTaskOnUI();
@@ -113,17 +109,17 @@ function submit(e){
 
         console.log(tasks);
 
-        //Problem: All the contet are used to make tasks and the tasks that are 
-        //already created are again created
         tasks.forEach(function(x, y){
-            console.log(`${y+1}: ${x}`);
-            createTask(y, x)
+            if(tasks.length === y+1){
+                createTask(y, x);
+                console.log(true);
+            }
         })
 
-
-        function createTask(value, index) {
+        function createTask(index, value) {
             const li = document.createElement('li');
-            li.className = `li_class${value+1}`;
+            li.className = 'li_class';
+            li.setAttribute('id', `li-id${index+1}`);
             globalUlVariable.appendChild(li);
             
             const div = document.createElement('div');
@@ -132,7 +128,7 @@ function submit(e){
             
             const content = document.createElement('p');
             content.className = 'content'
-            content.appendChild(document.createTextNode(index))
+            content.appendChild(document.createTextNode(value))
             div.appendChild(content)
             
             const tools = document.createElement('div');
@@ -144,7 +140,7 @@ function submit(e){
             tools.appendChild(tick);
             
             const trash = document.createElement('i');
-            trash.classList = 'trash_icon bx bx-trash bx-sm';
+            trash.classList = 'trash_icon bx bxs-rocket bx-sm';
             tools.appendChild(trash);
         }
     }
@@ -180,7 +176,7 @@ function removeAllTasks() {
     }
 }
 
-function animationRemove(e){    
+function RemoveOneTask(e){    
     let xPosition = 0;
     let object = e.target;
     let content = object.parentElement.parentElement.children[0].children[0].innerText;
