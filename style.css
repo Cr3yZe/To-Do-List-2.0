@@ -9,8 +9,7 @@
     --main-background-color: rgb(1, 2, 92);
     --main-task-color: rgb(255, 255, 255);
     --main-input-color: rgba(255, 255, 255);
-    --main-background-color-tools : rgb(229, 226, 226);
-    /* --main-background-color-check-card : rgba(3, 252, 11, 0.8); */
+    --main-background-color-tasks: rgb(245,245,245);
     --main-font-color: rgb(40,40,40);
     --main-font-family: 'Roboto Slab', serif;
 }
@@ -68,7 +67,6 @@ body {
 .wall_frame {
     width: 100%;
     overflow: hidden;
-    display: grid;
 }
 
 .ul_class {
@@ -81,38 +79,39 @@ body {
 .li_class {
     width: 100%;
     /* background-color: red; */
-    background-color: var(--main-task-color);
+    background-color: var(--main-background-color-tasks);
     margin-bottom: 20px;
-    border-radius: 8px 0 0 8px;
-    position: relative;
-    display: grid;
-    grid-template-columns: auto 88%;
+    border-radius: 8px;
+    display: grid !important;
+    grid-template-columns: auto 50px;
     word-wrap: break-word;
 }
 
 .content_frame {
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
     grid-row: 1 / 2;
-    padding: 20px 40px 20px 10px;
+    padding: 20px 20px 20px 20px;
 }
 
 .content {
     text-align: justify;
     place-self: center;
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
-.tools_frame {
-    background-color: var(--main-background-color-tools);
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    display: grid !important;
-    grid-template-rows: 50% 50%;
+.menu-icon-div {
+    background-color: greenyellow;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 2 / 3;
 }
 
-.check_icon {
+/* .check_icon {
     place-self: center;
     grid-row: 1 / 2;
     color: black;
@@ -132,48 +131,10 @@ body {
 
 .trash_icon:hover {
     color: #e20307;
-}
+} */
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 400px) {
     .frame {
-        width: 600px;
-    }
-}
-
-/* Take the tools_frame class from the left of the task and put it right under 
-the task when the rezolution get under 330px */
-@media only screen and (max-width: 400px) {
-    .li_class {
-        width: 100%;
-        border-radius: 0;
-        margin-bottom: 60px;
-        display: block;
-    }
-
-    .content_frame {
-        padding: 10px 30px;
-    }
-
-    .tools_frame {
-        width: 100%;
-        height: 40px;
-        border-radius: 0 0 8px 8px;
-        position: absolute;
-        top: 100%;
-        display: grid;
-        grid-template-rows: 0;
-        grid-template-columns: 50% 50%;
-    }
-
-    .check_icon {
-        grid-row: none;
-        grid-column: 1 / 2;
-        place-self: center;
-    }
-
-    .trash_icon {
-        grid-row: none;
-        grid-column: 2 / 3;
-        place-self: center;
+        width: 400px;
     }
 }
