@@ -96,7 +96,7 @@ body {
 .li-class:hover > div.menu-icon-div > div.menu-icon-frame {
     width: 150px;
     transform: scale(1, 1);
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .li-class:hover > div.menu-icon-div > div.menu-icon-frame > i.drop-down {
@@ -130,6 +130,7 @@ body {
 .menu-icon-frame {
     width: 100px;
     background-color: var(--mian-background-color-tools);
+    border-radius: 2px;
     display: grid;
     justify-content: center;
     align-content: center;

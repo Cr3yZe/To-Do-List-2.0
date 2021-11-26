@@ -18,6 +18,8 @@ function events() {
     // Get the input from the user and create the task card.
     form.addEventListener('submit', submit);
 
+    globalUlVariable.addEventListener('click', openToolsFrame);
+
     //Remove all the the tasks from the UI and Local Storage.
     removeAllTasksButton.addEventListener('click', removeAllTasks);
 
@@ -214,6 +216,21 @@ function submit(e){
     
     //Prevent the default behaviour of the form
     e.preventDefault();
+}
+
+function openToolsFrame(e){
+    let object = e.target;
+    let arrayUl = Array.from(object.parentElement.parentElement.parentElement.parentElement.children)
+    let currentTask = object.parentElement.parentElement.parentElement;
+
+    arrayUl.forEach(function(x, y){
+        if(arrayUl[y] === currentTask){
+            console.log(currentTask);
+            console.log(true);
+        } else{
+            console.log(false);
+        }
+    })
 }
 
 //Remove all the tasks
