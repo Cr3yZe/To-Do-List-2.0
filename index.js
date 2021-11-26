@@ -220,8 +220,14 @@ function submit(e){
 
 function openToolsFrame(e){
     let object = e.target;
+    let liTag = object.parentElement.parentElement.parentElement
+    let currentTask;
     let arrayUl = Array.from(object.parentElement.parentElement.parentElement.parentElement.children)
-    let currentTask = object.parentElement.parentElement.parentElement;
+    
+
+    if(liTag.classList.contains('li-class')){
+        currentTask = object.parentElement.parentElement.parentElement;
+    }
 
     arrayUl.forEach(function(x, y){
         if(arrayUl[y] === currentTask){
