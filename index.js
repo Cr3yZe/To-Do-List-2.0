@@ -227,8 +227,8 @@ function openToolsFrame(e){
         if(arrayUl[y] === currentTask){
             console.log(currentTask);
             console.log(true);
-        } else{
-            console.log(false);
+            currentTask.children[1].style.display = 'none';
+            currentTask.children[2].style.display = 'block';
         }
     })
 }
