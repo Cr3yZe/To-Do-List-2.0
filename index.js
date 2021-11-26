@@ -223,7 +223,9 @@ function openToolsFrame(e){
     let liTag = object.parentElement.parentElement.parentElement
     let currentTask;
     let arrayUl = Array.from(object.parentElement.parentElement.parentElement.parentElement.children)
-    
+    let dropMenuVar = 1;
+    let toolsFrameVar = 0;
+
 
     if(liTag.classList.contains('li-class')){
         currentTask = object.parentElement.parentElement.parentElement;
@@ -231,12 +233,36 @@ function openToolsFrame(e){
 
     arrayUl.forEach(function(x, y){
         if(arrayUl[y] === currentTask){
-            console.log(currentTask);
-            console.log(true);
-            currentTask.children[1].style.display = 'none';
-            currentTask.children[2].style.display = 'block';
+            // console.log(currentTask);
+            // console.log(true);
+            // currentTask.children[1].style.display = 'none';
+            // currentTask.children[2].style.display = 'block';
+            animationDropMenu();
+            animationToolsFrame();
         }
     })
+
+    function animationDropMenu(){
+        let divMenuIconFrame = object.parentElement.parentElement.parentElement.children[1].children[0]
+        let divMenuIconDiv = object.parentElement.parentElement
+        dropMenuVar -= 1;
+        
+        divMenuIconDiv.style.bottom = '28px'
+        divMenuIconFrame.style.transform = `scale(1, ${dropMenuVar})`;
+    }
+
+    function animationToolsFrame(){
+        let tools = object.parentElement.parentElement.parentElement.children[2].children[0];
+        toolsFrameVar += 0.07;
+        console.log(toolsFrameVar);
+        
+        tools.style.display = 'grid';
+        tools.style.transform = `scale(1, ${toolsFrameVar})`
+
+        if(Math.floor(toolsFrameVar) != 1){
+            requestAnimationFrame(animationToolsFrame);
+        }
+    }
 }
 
 //Remove all the tasks
@@ -355,9 +381,7 @@ function RemoveOneTask(e){
             } else{
                 tasks = JSON.parse(localStorage.getItem('tasks'))
             }
-    
-            console.log(tasks);
-    
+        
             tasks.forEach(function(x, y){
                 createTask(y, x);
             })
