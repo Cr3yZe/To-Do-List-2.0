@@ -135,7 +135,7 @@ body {
     align-content: center;
     z-index: 1;
     transition: 150ms linear;
-    transform: scale(1, 0.2);
+    transform: scale(1, 0.3);
     /* display: none; */
 }
 
