@@ -93,6 +93,16 @@ body {
     transform: scale(calc(1 + 0.02));
 }
 
+.li-class:hover > div.menu-icon-div > div.menu-icon-frame {
+    width: 150px;
+    transform: scale(1, 1);
+    border-radius: 3px;
+}
+
+.li-class:hover > div.menu-icon-div > div.menu-icon-frame > i.drop-down {
+    opacity: 1;
+}
+
 .content-frame {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
@@ -127,16 +137,6 @@ body {
     transition: 150ms linear;
     transform: scale(1, 0.2);
     /* display: none; */
-}
-
-.menu-icon-frame:hover {
-    width: 150px;
-    transform: scale(1, 1);
-    border-radius: 3px;
-}
-
-.menu-icon-frame:hover > .drop-down {
-    opacity: 1;
 }
 
 .drop-down {
