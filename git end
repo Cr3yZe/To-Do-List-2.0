@@ -1,0 +1,22 @@
+[1mdiff --git a/index.js b/index.js[m
+[1mindex 010572d..ce978a2 100644[m
+[1m--- a/index.js[m
+[1m+++ b/index.js[m
+[36m@@ -232,7 +232,7 @@[m [mfunction removeAllTasks() {[m
+         }[m
+         [m
+         function removeAllTasksAnimation(){[m
+[31m-            xPosition += 50;[m
+[32m+[m[32m            xPosition += 100;[m
+ [m
+             globalUlVariable.style.transform = `translate3d(${xPosition}px, 0, 0)`[m
+ [m
+[36m@@ -268,7 +268,7 @@[m [mfunction RemoveOneTask(e){[m
+     }[m
+     [m
+     function animationProcess(){[m
+[31m-        xPosition += 50;[m
+[32m+[m[32m        xPosition += 1;[m
+         [m
+         object.parentElement.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;[m
+         [m

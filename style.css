@@ -73,8 +73,8 @@ body {
 .ul-class {
     width: 100%;
     list-style-type: none;
-    margin: auto;
-    margin-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 20px;
 }
 
 .li-class {
@@ -82,7 +82,7 @@ body {
     margin: auto;
     /* background-color: red; */
     background-color: var(--main-background-color-tasks);
-    margin-bottom: 50px;
+    margin-bottom: 15px;
     border-radius: 8px;
     word-wrap: break-word;
     position: relative;
@@ -96,7 +96,7 @@ body {
 .content-frame {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    padding: 20px 20px 30px 20px;
+    padding: 15px 50px 15px 20px;
 }
 
 .content {
@@ -107,10 +107,12 @@ body {
 
 .menu-icon-div {
     /* background-color: greenyellow; */
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     position: absolute;
     display: grid;
     justify-content: center;
-    bottom: 0px;
+    bottom: -8px;
     right: 0;
     left: 0;
 }
@@ -118,23 +120,30 @@ body {
 .menu-icon-frame {
     width: 100px;
     background-color: var(--mian-background-color-tools);
-    /* border-radius: 5px; */
     display: grid;
     justify-content: center;
     align-content: center;
     z-index: 1;
     transition: 150ms linear;
+    transform: scale(1, 0.2);
+    /* display: none; */
 }
 
 .menu-icon-frame:hover {
     width: 150px;
-    background-color: var(--mian-background-color-tools);
+    transform: scale(1, 1);
+    border-radius: 3px;
+}
+
+.menu-icon-frame:hover > .drop-down {
+    opacity: 1;
 }
 
 .drop-down {
     color: black;
-    transition: 250ms;
-    position: relative
+    transition: 150ms;
+    position: relative;
+    opacity: 0;
 }
 
 .drop-down:hover {
@@ -142,10 +151,11 @@ body {
 }
 
 .tools-frame {
-    position: absolute;
+    /* position: absolute; */
+    display: none;
     width: 100%;
     bottom: -35px;
-    display: grid;
+    /* display: grid; */
     grid-template-columns: 15% auto 15%;
     text-align: center;
 }
@@ -155,6 +165,8 @@ body {
     grid-column: 2 / 3;
     display: grid;
     align-items: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     grid-template-columns: 25% 25% 25% 25%;
 }
 
@@ -194,8 +206,8 @@ body {
     color: purple;
 }
 
-@media only screen and (min-width: 400px) {
+@media only screen and (min-width: 500px) {
     .frame {
-        width: 400px;
+        width: 500px;
     }
 }
