@@ -148,7 +148,6 @@ function submit(e){
         tasks.forEach(function(x, y){
             if(tasks.length === y+1){
                 createTask(y, x);
-                console.log(true);
             }
         })
 
@@ -254,7 +253,6 @@ function openToolsFrame(e){
     function animationToolsFrame(){
         let tools = object.parentElement.parentElement.parentElement.children[2].children[0];
         toolsFrameVar += 0.07;
-        console.log(toolsFrameVar);
         
         tools.style.display = 'grid';
         tools.style.transform = `scale(1, ${toolsFrameVar})`
@@ -310,8 +308,9 @@ function RemoveOneTask(e){
     let xPosition = 0;
     let object = e.target;
     //Save the content of the task that will be deleted.
-    let content = object.parentElement.parentElement.parentElement.children[0].children[0].innerText;
-    
+    let content = object.parentElement.parentElement.parentElement.children[0].children[0].textContent;
+    console.log(typeof(content));
+
     if(object.classList.contains('rocket-icon')){
         animationProcess();
     }
@@ -326,8 +325,6 @@ function RemoveOneTask(e){
         } else{
             removeTaskFromUI(object);
             removeTasksFromLocaleStorage(content);
-            //After the task is deleted from UI and LS delet all the tasks on the UI and
-            //make them up again to reset the number of the ids on the DOM.
             removeAndGetFromLS(globalUlVariable);
         }
     }
@@ -351,6 +348,7 @@ function RemoveOneTask(e){
         //Loop through the entier array(tasks) and if x(the content on the index)
         //is equal to the task variable remove y(the index of that content)
         tasks.forEach(function(x, y){
+            console.log(x, y);
             if(x === task){
                 tasks.splice(y, 1);
         }});

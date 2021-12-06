@@ -175,15 +175,17 @@ body {
     display: none;
     /* display: grid; */
     align-items: center;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 10% 10% 10% 10%;
+    gap: 20%;
 }
 
 .check-icon {
     grid-column: 1 / 2;
     transition: 250ms;
+    /* border: 1px solid white; */
 }
 
-.check-icon:hover {
+.bx-check:hover:before {
     color: greenyellow;
 }
 
