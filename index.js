@@ -72,7 +72,7 @@ function getFromLocaleStorage() {
         menuIconDiv.appendChild(menuIconFrame);
 
         const dropDown = document.createElement('i');
-        dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs bx-tada-hover';
+        dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
         menuIconFrame.appendChild(dropDown);
         
         //Create tht third div
@@ -180,7 +180,7 @@ function submit(e){
             menuIconDiv.appendChild(menuIconFrame);
     
             const dropDown = document.createElement('i');
-            dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs bx-tada-hover';
+            dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
             menuIconFrame.appendChild(dropDown);
             
             //Create tht third div
@@ -222,37 +222,29 @@ function openToolsFrame(e){
     let liTag = object.parentElement.parentElement.parentElement
     let currentTask;
     let arrayUl = Array.from(object.parentElement.parentElement.parentElement.parentElement.children)
-    let dropMenuVar = 1;
     let toolsFrameVar = 0;
-
-
+    
+    
     if(liTag.classList.contains('li-class')){
         currentTask = object.parentElement.parentElement.parentElement;
     }
-
+    
     arrayUl.forEach(function(x, y){
         if(arrayUl[y] === currentTask){
-            // console.log(currentTask);
-            // console.log(true);
-            // currentTask.children[1].style.display = 'none';
-            // currentTask.children[2].style.display = 'block';
             animationDropMenu();
             animationToolsFrame();
         }
     })
-
+    
     function animationDropMenu(){
-        let divMenuIconFrame = object.parentElement.parentElement.parentElement.children[1].children[0]
+        // let divMenuIconFrame = object.parentElement.parentElement.parentElement.children[1].children[0]
         let divMenuIconDiv = object.parentElement.parentElement
-        dropMenuVar -= 1;
-        
-        divMenuIconDiv.style.bottom = '28px'
-        divMenuIconFrame.style.transform = `scale(1, ${dropMenuVar})`;
+
     }
 
     function animationToolsFrame(){
         let tools = object.parentElement.parentElement.parentElement.children[2].children[0];
-        toolsFrameVar += 0.07;
+        toolsFrameVar += 0.04;
         
         tools.style.display = 'grid';
         tools.style.transform = `scale(1, ${toolsFrameVar})`
@@ -309,7 +301,6 @@ function RemoveOneTask(e){
     let object = e.target;
     //Save the content of the task that will be deleted.
     let content = object.parentElement.parentElement.parentElement.children[0].children[0].textContent;
-    console.log(typeof(content));
 
     if(object.classList.contains('rocket-icon')){
         animationProcess();
@@ -411,7 +402,7 @@ function RemoveOneTask(e){
                 menuIconDiv.appendChild(menuIconFrame);
         
                 const dropDown = document.createElement('i');
-                dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs bx-tada-hover';
+                dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
                 menuIconFrame.appendChild(dropDown);
                 
                 //Create tht third div
