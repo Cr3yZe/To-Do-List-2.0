@@ -237,6 +237,7 @@ function openTools(e){
     let opacityDown = 0;
     let opacityUp = 1;
     let rotationDown = 0;
+    let rotationUp = 180;
     
     //Check if the tag that was set in the liTag variable it is a li tag.
     if(liTag.classList.contains('li-class')){
@@ -256,7 +257,6 @@ function openTools(e){
             if(arrayLi[y] === currentTask){
                 //If the checkbox is unchecked(false) display the tools menu.
                 if(checkBox.checked === false){
-                    animationDropMenuOn();
                     animationToolsFrameOn();
                 //If the checkbox is checked(true) hidde the tools menu.
                 } else if(checkBox.checked === true){
@@ -265,17 +265,6 @@ function openTools(e){
             }
         })
 
-    }
-
-    function animationDropMenuOn(){
-        let dropDownIcon = object.parentElement.children[1];
-        rotationDown += 30;
-
-        dropDownIcon.style.transform = `rotate(${rotationDown}deg)`;
-        
-        if(rotationDown <= 179){
-            requestAnimationFrame(animationDropMenuOn);
-        }
     }
     
     function animationToolsFrameOn(){
@@ -300,33 +289,58 @@ function openTools(e){
         
         if(toolsVarDown <= 42){
             requestAnimationFrame(animationToolsFrameOn);
+        } else{
+            animationDropMenuOn();
+        }
+        
+        function animationDropMenuOn(){
+            let dropDownIcon = object.parentElement.children[1];
+            rotationDown += 30;
+    
+            dropDownIcon.style.transform = `rotate(${rotationDown}deg)`;
+            
+            if(rotationDown <= 179){
+                requestAnimationFrame(animationDropMenuOn);
+            }
         }
     }
     
     function animationToolsFrameOff(){
         let toolsFrame = object.parentElement.parentElement.parentElement;
-        let dropDownIcon = object.parentElement.children[1];
         let tools = toolsFrame.children[0];
         let toolsIcon = liTag.querySelectorAll('#tools-icon');
         let radius = 0;
-
+        
         toolsVarUp -= 3;
         opacityUp -= 03;
-
+        
         tools.style.display = 'grid';
         liTag.style.borderRadius = `${radius}px`;
         toolsFrame.style.height = `${toolsVarUp}px`;
-
+        
         toolsIcon = Array.from(toolsIcon);
-
+        
         toolsIcon.forEach(function(x, y){
             toolsIcon[y].style.opacity = `${opacityUp}`;
         });
-
+        
         if(toolsVarUp >= 3){
             requestAnimationFrame(animationToolsFrameOff);
         } else{
-            dropDownIcon.style.transform = 'rotate(0deg)';
+            animationDropMenuOff();
+            // dropDownIcon.style.transform = 'rotate(0deg)';
+        }
+        
+        function animationDropMenuOff(){
+            let dropDownIcon = object.parentElement.children[1];
+            
+            rotationUp -= 30;
+            console.log(rotationUp);
+            dropDownIcon.style.transform = `rotate(${rotationUp}deg`;
+
+            if(rotationUp >= 1){
+                requestAnimationFrame(animationDropMenuOff);
+            }
         }
     }
 }
