@@ -18,7 +18,7 @@ function events() {
     // Get the input from the user and create the task card.
     form.addEventListener('submit', submit);
 
-    globalUlVariable.addEventListener('click', openToolsFrame);
+    globalUlVariable.addEventListener('click', openTools);
 
     //Remove all the the tasks from the UI and Local Storage.
     removeAllTasksButton.addEventListener('click', removeAllTasks);
@@ -222,59 +222,111 @@ function submit(e){
     e.preventDefault();
 }
 
-function openToolsFrame(e){
+function openTools(e){
     let object = e.target;
-    let liTag = object.parentElement.parentElement.parentElement.parentElement
     let currentTask;
-    let arrayUl = Array.from(object.parentElement.parentElement.parentElement.parentElement.parentElement.children)
-    console.log(arrayUl);
-    let toolsVar = 0;
-    let divMenuVar = 0;  
-    let opacity = 0;  
+    let liTags;
+    let arrayLi;
+
+    // Set the li that was selected into a variable.
+    let liTag = object.parentElement.parentElement.parentElement.parentElement
+
+    //Variables for animations.
+    let toolsVarDown = 0;
+    let toolsVarUp = 45;
+    let opacityDown = 0;
+    let opacityUp = 1;
+    let rotationDown = 0;
     
+    //Check if the tag that was set in the liTag variable it is a li tag.
     if(liTag.classList.contains('li-class')){
         currentTask = object.parentElement.parentElement.parentElement.parentElement;
     }
-    
-    arrayUl.forEach(function(x, y){
-        if(arrayUl[y] === currentTask){
-            animationDropMenu();
-            animationToolsFrame();
-        }
-    })
-    
-    function animationDropMenu(){
-        // let divMenuIconFrame = object.parentElement.parentElement.parentElement.children[1].children[0]
-        let divMenuIconDiv = object.parentElement.parentElement;
-        divMenuVar -= 1;
 
-        divMenuIconDiv.style.bottom = `${divMenuVar}px`;  
+    //Check if the icon that was selected by the user is the drop-down icon.
+    if(object.classList.contains('drop-down')){
+        //Select all the lis form the UI
+        liTags = object.parentElement.parentElement.parentElement.parentElement.parentElement.children;
+        //Set the checkbox from the DOM in checkBox variable.
+        checkBox = object.parentElement.children[0];
+        arrayLi = Array.from(liTags);
 
-        if(divMenuVar !== -15){
-            requestAnimationFrame(animationDropMenu);
-        }
-    }
-
-    function animationToolsFrame(){
-        let tools = object.parentElement.parentElement.parentElement;
-        let toolsFrame = object.parentElement.parentElement.parentElement.children[0];
-        let toolsIcon = liTag.querySelectorAll ('#tools-icon');
-        toolsIcon = Array.from(toolsIcon);
-        let radius = 4;
-
-        toolsVar += 2;
-        opacity += .05;
-        
-        toolsFrame.style.display = 'grid';
-        tools.style.height = `${toolsVar}px`;
-        liTag.style.borderRadius = `${radius}px`;
-
-        toolsIcon.forEach(function(x, y){
-            toolsIcon[y].style.opacity = `${opacity}`
+        //Loop through the array, searching for the currentTask that was selected.
+        arrayLi.forEach(function(x, y){
+            if(arrayLi[y] === currentTask){
+                //If the checkbox is unchecked(false) display the tools menu.
+                if(checkBox.checked === false){
+                    animationDropMenuOn();
+                    animationToolsFrameOn();
+                //If the checkbox is checked(true) hidde the tools menu.
+                } else if(checkBox.checked === true){
+                    animationToolsFrameOff();
+                }
+            }
         })
 
-        if(toolsVar <= 42){
-            requestAnimationFrame(animationToolsFrame);
+    }
+
+    function animationDropMenuOn(){
+        let dropDownIcon = object.parentElement.children[1];
+        rotationDown += 30;
+
+        dropDownIcon.style.transform = `rotate(${rotationDown}deg)`;
+        
+        if(rotationDown <= 179){
+            requestAnimationFrame(animationDropMenuOn);
+        }
+    }
+    
+    function animationToolsFrameOn(){
+        //Set the frame of the tools menu into toolsFrame variable
+        let toolsFrame = object.parentElement.parentElement.parentElement;
+        let tools = toolsFrame.children[0];
+        let toolsIcon = liTag.querySelectorAll('#tools-icon');
+        let radius = 4;
+        
+        toolsVarDown += 3;
+        opacityDown += .07;
+        
+        tools.style.display = 'grid';
+        toolsFrame.style.height = `${toolsVarDown}px`;
+        liTag.style.borderRadius = `${radius}px`;
+        
+        toolsIcon = Array.from(toolsIcon);
+        
+        toolsIcon.forEach(function(x, y){
+            toolsIcon[y].style.opacity = `${opacityDown}`
+        })
+        
+        if(toolsVarDown <= 42){
+            requestAnimationFrame(animationToolsFrameOn);
+        }
+    }
+    
+    function animationToolsFrameOff(){
+        let toolsFrame = object.parentElement.parentElement.parentElement;
+        let dropDownIcon = object.parentElement.children[1];
+        let tools = toolsFrame.children[0];
+        let toolsIcon = liTag.querySelectorAll('#tools-icon');
+        let radius = 0;
+
+        toolsVarUp -= 3;
+        opacityUp -= 03;
+
+        tools.style.display = 'grid';
+        liTag.style.borderRadius = `${radius}px`;
+        toolsFrame.style.height = `${toolsVarUp}px`;
+
+        toolsIcon = Array.from(toolsIcon);
+
+        toolsIcon.forEach(function(x, y){
+            toolsIcon[y].style.opacity = `${opacityUp}`;
+        });
+
+        if(toolsVarUp >= 3){
+            requestAnimationFrame(animationToolsFrameOff);
+        } else{
+            dropDownIcon.style.transform = 'rotate(0deg)';
         }
     }
 }
