@@ -96,9 +96,14 @@ function getFromLocaleStorage() {
         menuIconDiv.className = 'menu-icon-div';
         toolsFrame.appendChild(menuIconDiv)
 
-        const menuIconFrame = document.createElement('div');
+        const menuIconFrame = document.createElement('label');
         menuIconFrame.className = 'menu-icon-frame';
         menuIconDiv.appendChild(menuIconFrame);
+
+        const inputCheckBox = document.createElement('input');
+        inputCheckBox.className = 'check';
+        inputCheckBox.setAttribute('type', 'checkbox');
+        menuIconFrame.appendChild(inputCheckBox);
 
         const dropDown = document.createElement('i');
         dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
@@ -205,10 +210,15 @@ function submit(e){
             menuIconDiv.className = 'menu-icon-div';
             toolsFrame.appendChild(menuIconDiv)
     
-            const menuIconFrame = document.createElement('div');
+            const menuIconFrame = document.createElement('label');
             menuIconFrame.className = 'menu-icon-frame';
             menuIconDiv.appendChild(menuIconFrame);
-    
+
+            const inputCheckBox = document.createElement('input');
+            inputCheckBox.className = 'check';
+            inputCheckBox.setAttribute('type', 'checkbox');
+            menuIconFrame.appendChild(inputCheckBox);
+
             const dropDown = document.createElement('i');
             dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
             menuIconFrame.appendChild(dropDown);
@@ -335,7 +345,6 @@ function openTools(e){
             let dropDownIcon = object.parentElement.children[1];
             
             rotationUp -= 30;
-            console.log(rotationUp);
             dropDownIcon.style.transform = `rotate(${rotationUp}deg`;
 
             if(rotationUp >= 1){
@@ -517,10 +526,15 @@ function RemoveOneTask(e){
                 menuIconDiv.className = 'menu-icon-div';
                 toolsFrame.appendChild(menuIconDiv)
         
-                const menuIconFrame = document.createElement('div');
+                const menuIconFrame = document.createElement('label');
                 menuIconFrame.className = 'menu-icon-frame';
                 menuIconDiv.appendChild(menuIconFrame);
-        
+
+                const inputCheckBox = document.createElement('input');
+                inputCheckBox.className = 'check';
+                inputCheckBox.setAttribute('type', 'checkbox');
+                menuIconFrame.appendChild(inputCheckBox);
+                
                 const dropDown = document.createElement('i');
                 dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
                 menuIconFrame.appendChild(dropDown);
