@@ -282,14 +282,13 @@ function openTools(e){
         let toolsFrame = object.parentElement.parentElement.parentElement;
         let tools = toolsFrame.children[0];
         let toolsIcon = selectedLiTag.querySelectorAll('#tools-icon');
-        let radius = 4;
         
         toolsVarDown += 5;
         opacityDown += .1;
         
-        tools.style.display = 'grid';
         toolsFrame.style.height = `${toolsVarDown}px`;
-        selectedLiTag.style.borderRadius = `${radius}px`;
+        selectedLiTag.style.borderBottomLeftRadius = '8px';
+        selectedLiTag.style.borderBottomRightRadius = '8px';
         
         toolsIcon = Array.from(toolsIcon);
         
@@ -323,9 +322,8 @@ function openTools(e){
         
         toolsVarUp -= 5;
         console.log(toolsVarUp);
-        opacityUp -= 03;
+        opacityUp -= .1;
         
-        // tools.style.display = 'grid';
         selectedLiTag.style.borderBottomLeftRadius = `${radius}px`;
         selectedLiTag.style.borderBottomRightRadius = `${radius}px`;
         toolsFrame.style.height = `${toolsVarUp}px`;
@@ -333,7 +331,7 @@ function openTools(e){
         toolsIcon = Array.from(toolsIcon);
         
         toolsIcon.forEach(function(x, y){
-            toolsIcon[y].style.opacity = `${opacityUp}`;
+            toolsIcon[y].style.opacity = `${Math.floor(opacityUp)}`;
         });
         
         if(toolsVarUp >= 5){
@@ -426,8 +424,11 @@ function RemoveOneTask(e){
         let menuIconDiv = object.parentElement.parentElement.children[1];
         //Select the entier tools frame.
         let toolsFrame = object.parentElement.parentElement;
-        //Select the div where the tools are located.
-        let tools = toolsFrame.children[0];
+        // //Select the div where the tools are located.
+        // let tools = toolsFrame.children[0];
+        //Select the drop down icon.
+        let dropDownIcon = object.parentElement.parentElement.children[1].children[0].children[1];
+        console.log(dropDownIcon);
         //Select the tools.
         let toolsIcon = selectedLiTag.querySelectorAll('#tools-icon');
 
@@ -437,14 +438,19 @@ function RemoveOneTask(e){
         
         selectedLiTag.style.borderBottomLeftRadius = '0px';
         selectedLiTag.style.borderBottomRightRadius = '0px';
+        //Seting the height of the toolsFrame to its original value(0);
         toolsFrame.style.height = `${toolsVarUp}px`;
         //Setting the scale of the menu bar under the task to its original size when deleting the task.
-        menuIconDiv.style.transform = 'scale(1, 0.6)';
+        menuIconDiv.style.transform = 'scale(1, 0.3)';
+        dropDownIcon.style.opacity = '0';
+
         
         toolsIcon = Array.from(toolsIcon);
         
         toolsIcon.forEach(function(x, y){
-            toolsIcon[y].style.transform = 'scale(0, 0)';
+            // toolsIcon[y].style.display = 'none';
+            toolsIcon[y].style.opacity = '0';
+            console.log(toolsIcon[y]);
         });
         
         if(toolsVarUp >= 5){
