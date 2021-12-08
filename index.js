@@ -448,8 +448,9 @@ function RemoveOneTask(e){
         toolsIcon = Array.from(toolsIcon);
         
         toolsIcon.forEach(function(x, y){
-            // toolsIcon[y].style.display = 'none';
-            toolsIcon[y].style.opacity = '0';
+            toolsIcon[y].style.display = 'none';
+            // toolsIcon[y].style.opacity = '0';
+            toolsIcon[y].style.color = 'rgb(1, 2, 92)'
             console.log(toolsIcon[y]);
         });
         
@@ -466,7 +467,7 @@ function RemoveOneTask(e){
             
     
             if(Math.abs(xPosition) <= 900){
-                requestAnimationFrame(animationProcess);
+                requestAnimationFframe(animationProcess);
             } else{
                 removeTaskFromUI(object);
                 removeTasksFromLocaleStorage(content);
