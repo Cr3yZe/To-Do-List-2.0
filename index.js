@@ -321,7 +321,6 @@ function openTools(e){
         let radius = 0;
         
         toolsVarUp -= 5;
-        console.log(toolsVarUp);
         opacityUp -= .1;
         
         selectedLiTag.style.borderBottomLeftRadius = `${radius}px`;
@@ -428,7 +427,6 @@ function RemoveOneTask(e){
         // let tools = toolsFrame.children[0];
         //Select the drop down icon.
         let dropDownIcon = object.parentElement.parentElement.children[1].children[0].children[1];
-        console.log(dropDownIcon);
         //Select the tools.
         let toolsIcon = selectedLiTag.querySelectorAll('#tools-icon');
 
