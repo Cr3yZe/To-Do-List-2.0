@@ -448,10 +448,9 @@ function RemoveOneTask(e){
         toolsIcon = Array.from(toolsIcon);
         
         toolsIcon.forEach(function(x, y){
-            toolsIcon[y].style.display = 'none';
-            // toolsIcon[y].style.opacity = '0';
+            //Make the color of the tools to be the same with the background to not be visible
+            //when the bar gets to its original for when deleting the task.
             toolsIcon[y].style.color = 'rgb(1, 2, 92)'
-            console.log(toolsIcon[y]);
         });
         
         if(toolsVarUp >= 5){
