@@ -115,16 +115,6 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 }
 
 
-.drop-down {
-    color: black;
-    transition: 150ms;
-    opacity: 0;
-}
-
-.drop-down:hover {
-    color: white;
-}
-
 .tools-frame {
     background-color: var(--main-background-color-tools);
     border-bottom-left-radius: 4px;
@@ -133,23 +123,27 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
     width: 100%;
     /* bottom: -35px; */
     display: grid;
-    grid-template-rows: 80% auto;
+    grid-template-columns: 10% auto 10%;
+    grid-template-rows: 90% auto;
 }
 
 .tools {
-    display: none;
+    display: grid;
     align-items: center;
     justify-content: center;
-    grid-template-columns: 6% 6% 6% 6%;
-    gap: 20%;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    grid-template-columns: 5% 5% 5% 5%;
+    column-gap: 26.66%;
 }
 
 .menu-icon-div {
     background-color: var(--main-background-color-tools);
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
+    grid-column-start: 1;
+    grid-column-end: 4;
     grid-row: 2 / 3;
-    grid-column: 1 / 2;
     transform: scale(1, 0.6);
     transform-origin: top;
     transition: 150ms;
@@ -170,11 +164,23 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
     display: none;
 }
 
+.drop-down {
+    color: black;
+    transition: 150ms;
+    opacity: 0;
+}
+
+.drop-down:hover {
+    color: white;
+}
+
 .check-icon {
     opacity: 0;
     grid-column: 1 / 2;
     transition: 250ms;
-    /* border: 1px solid white; */
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
 .bx-check:hover {
@@ -185,6 +191,9 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
     opacity: 0;
     grid-column: 2 / 3;
     transition: 250ms;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
 .rocket-icon:hover {
@@ -195,6 +204,9 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
     opacity: 0;
     grid-column: 3 / 4;
     transition: 250ms;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
 .star-icon:hover {
@@ -205,6 +217,9 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
     opacity: 0;
     grid-column: 4 / 5;
     transition: 250ms;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
 .comment-icon:hover {

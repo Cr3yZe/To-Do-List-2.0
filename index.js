@@ -239,7 +239,7 @@ function openTools(e){
     let arrayLi;
 
     // Set the li that was selected into a variable.
-    let liTag = object.parentElement.parentElement.parentElement.parentElement
+    let selectedLiTag = object.parentElement.parentElement.parentElement.parentElement;
 
     //Variables for animations.
     let toolsVarDown = 0;
@@ -250,7 +250,7 @@ function openTools(e){
     let rotationUp = 180;
     
     //Check if the tag that was set in the liTag variable it is a li tag.
-    if(liTag.classList.contains('li-class')){
+    if(selectedLiTag.classList.contains('li-class')){
         currentTask = object.parentElement.parentElement.parentElement.parentElement;
     }
 
@@ -281,15 +281,15 @@ function openTools(e){
         //Set the frame of the tools menu into toolsFrame variable
         let toolsFrame = object.parentElement.parentElement.parentElement;
         let tools = toolsFrame.children[0];
-        let toolsIcon = liTag.querySelectorAll('#tools-icon');
+        let toolsIcon = selectedLiTag.querySelectorAll('#tools-icon');
         let radius = 4;
         
-        toolsVarDown += 3;
-        opacityDown += .07;
+        toolsVarDown += 5;
+        opacityDown += .1;
         
         tools.style.display = 'grid';
         toolsFrame.style.height = `${toolsVarDown}px`;
-        liTag.style.borderRadius = `${radius}px`;
+        selectedLiTag.style.borderRadius = `${radius}px`;
         
         toolsIcon = Array.from(toolsIcon);
         
@@ -297,7 +297,7 @@ function openTools(e){
             toolsIcon[y].style.opacity = `${opacityDown}`
         })
         
-        if(toolsVarDown <= 42){
+        if(toolsVarDown <= 45){
             requestAnimationFrame(animationToolsFrameOn);
         } else{
             animationDropMenuOn();
@@ -318,14 +318,16 @@ function openTools(e){
     function animationToolsFrameOff(){
         let toolsFrame = object.parentElement.parentElement.parentElement;
         let tools = toolsFrame.children[0];
-        let toolsIcon = liTag.querySelectorAll('#tools-icon');
+        let toolsIcon = selectedLiTag.querySelectorAll('#tools-icon');
         let radius = 0;
         
-        toolsVarUp -= 3;
+        toolsVarUp -= 5;
+        console.log(toolsVarUp);
         opacityUp -= 03;
         
-        tools.style.display = 'grid';
-        liTag.style.borderRadius = `${radius}px`;
+        // tools.style.display = 'grid';
+        selectedLiTag.style.borderBottomLeftRadius = `${radius}px`;
+        selectedLiTag.style.borderBottomRightRadius = `${radius}px`;
         toolsFrame.style.height = `${toolsVarUp}px`;
         
         toolsIcon = Array.from(toolsIcon);
@@ -334,7 +336,7 @@ function openTools(e){
             toolsIcon[y].style.opacity = `${opacityUp}`;
         });
         
-        if(toolsVarUp >= 3){
+        if(toolsVarUp >= 5){
             requestAnimationFrame(animationToolsFrameOff);
         } else{
             animationDropMenuOff();
@@ -371,173 +373,220 @@ function removeAllTasks() {
         
         function removeAllTasksAnimation(){
             xPosition += 50;
-
+            
             globalUlVariable.style.transform = `translate3d(${xPosition}px, 0, 0)`
-
+            
             if(Math.abs(xPosition) <= 900){
                 requestAnimationFrame(removeAllTasksAnimation);
             } else{
                 console.log(true);
-             //Loop through the entier array and delete every index,
-            //one by one.
-            allChidren.forEach(function(x){
-                globalUlVariable.removeChild(x);
-            })
-            //After all the task were deleted from the UI,
+                //Loop through the entier array and delete every index,
+                //one by one.
+                allChidren.forEach(function(x){
+                    globalUlVariable.removeChild(x);
+                })
+                //After all the task were deleted from the UI,
             //Delete the key 'tasks' from the LS to not load again when
             //the browser have been opened.
             localStorage.removeItem('tasks');
             let xPosition = 0;
             globalUlVariable.style.transform = `translate3d(${xPosition}px, 0, 0)`
-            }
         }
     }
 }
+}
 
 function RemoveOneTask(e){
+    let object = e.target;
+
+    //Variables for the animation of the tools menu.
+    let toolsVarUp = 45;
+    let opacityUp = 1;
+    let rotationUp = 180;
+
     //Variable that will be used to create the animation of the deletion process.    
     let xPosition = 0;
-    let object = e.target;
+    
     //Save the content of the task that will be deleted.
     let content = object.parentElement.parentElement.parentElement.children[0].children[0].textContent;
-
+    
+    //Check if the event happend on the rocket icon.
     if(object.classList.contains('rocket-icon')){
-        animationProcess();
+        animationToolsFrameOff();   
     }
     
-    function animationProcess(){
-        xPosition += 50;
+    //First, make the animation of the menu to disappear
+    function animationToolsFrameOff(){
+        let object = e.target;
         
-        object.parentElement.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
+        //Set the li, that was selected to be deleted, into a variable.
+        let selectedLiTag = object.parentElement.parentElement.parentElement;
         
-        if(Math.abs(xPosition) <= 900){
-            requestAnimationFrame(animationProcess);
+        //Select the bar under the current task.
+        let menuIconDiv = object.parentElement.parentElement.children[1];
+        //Select the entier tools frame.
+        let toolsFrame = object.parentElement.parentElement;
+        //Select the div where the tools are located.
+        let tools = toolsFrame.children[0];
+        //Select the tools.
+        let toolsIcon = selectedLiTag.querySelectorAll('#tools-icon');
+
+        //Set new values for the variables every time when the requestAniamtionFrame exeutes.
+        toolsVarUp -= 10;
+        opacityUp -= 1;
+        
+        selectedLiTag.style.borderBottomLeftRadius = '0px';
+        selectedLiTag.style.borderBottomRightRadius = '0px';
+        toolsFrame.style.height = `${toolsVarUp}px`;
+        //Setting the scale of the menu bar under the task to its original size when deleting the task.
+        menuIconDiv.style.transform = 'scale(1, 0.6)';
+        
+        toolsIcon = Array.from(toolsIcon);
+        
+        toolsIcon.forEach(function(x, y){
+            toolsIcon[y].style.transform = 'scale(0, 0)';
+        });
+        
+        if(toolsVarUp >= 5){
+            requestAnimationFrame(animationToolsFrameOff);
         } else{
-            removeTaskFromUI(object);
-            removeTasksFromLocaleStorage(content);
-            removeAndGetFromLS(globalUlVariable);
+            animationProcess();  
         }
-    }
-
-    function removeTaskFromUI(taskToRemove){
-        taskToRemove.parentElement.parentElement.parentElement.remove();
-    }
-
-    function removeTasksFromLocaleStorage(task){
-        let tasks;
-
-        //Check if there is something in the LS. If there is nothing in there set
-        //the tasks variable to an empty array and if there is something in there
-        //take it and parse it as an array into the tasks variable.
-        if(localStorage.getItem('tasks' === null)){
-            tasks = [];
-        } else {
-            tasks = JSON.parse(localStorage.getItem('tasks'));
-        }
-
-        //Loop through the entier array(tasks) and if x(the content on the index)
-        //is equal to the task variable remove y(the index of that content)
-        tasks.forEach(function(x, y){
-            console.log(x, y);
-            if(x === task){
-                tasks.splice(y, 1);
-        }});
-
-        //After the index was removed from the array set back the LS;
-        localStorage.setItem('tasks', JSON.stringify(tasks))
-    }
-
-    function removeAndGetFromLS(e){
-        //The function that delet the task from the UI.
-        removeTasks(e);
-        //The function that recreate all the tasks on the UI from LS.
-        getFromLS();
-
-        function removeTasks(e){
-            let allChidren = Array.from(e.children);
-
-            allChidren.forEach(function(x){
-                e.removeChild(x);
-            })
-        }
-
-        function getFromLS(){
-            let tasks;
-
-            if(localStorage.getItem('tasks') === null){
-                tasks = [];
-            } else{
-                tasks = JSON.parse(localStorage.getItem('tasks'))
-            }
         
-            tasks.forEach(function(x, y){
-                createTask(y, x);
-            })
+        function animationProcess(){
+            xPosition += 50;
+            
+            object.parentElement.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
+            
     
-            function createTask(index, value) {
-                //Create the li
-                const li = document.createElement('li');
-                li.className = 'li-class';
-                //Set a different id using the index of the loop.
-                li.setAttribute('id', `li-id${index+1}`);
-                globalUlVariable.appendChild(li);
-                
-                //Create the first div
-                const div = document.createElement('div');
-                div.className = 'content-frame';
-                li.appendChild(div);
-                
-                const content = document.createElement('p');
-                content.className = 'content';
-                content.appendChild(document.createTextNode(value))
-                div.appendChild(content)
-                
-                //Create the second div
-                const toolsFrame = document.createElement('div');
-                toolsFrame.className = 'tools-frame';
-                li.appendChild(toolsFrame);
-        
-                const tools = document.createElement('div');
-                tools.className = 'tools';
-                toolsFrame.appendChild(tools);
-                
-                const checkIcon = document.createElement('i')
-                checkIcon.classList = 'check-icon bx bx-check bx-md bx-tada';
-                checkIcon.setAttribute('id', 'tools-icon');
-                tools.appendChild(checkIcon);
-                
-                const rocketIcon = document.createElement('i');
-                rocketIcon.classList = 'rocket-icon bx bxs-rocket bx-sm bx-tada';
-                rocketIcon.setAttribute('id', 'tools-icon');
-                tools.appendChild(rocketIcon);
-                
-                const starIcon = document.createElement('i');
-                starIcon.classList = 'star-icon bx bxs-star bx-sm bx-tada';
-                starIcon.setAttribute('id', 'tools-icon');
-                tools.appendChild(starIcon);
-                
-                const commnetIcon = document.createElement('i');
-                commnetIcon.classList = 'comment-icon bx bxs-comment-detail bx-sm bx-tada';
-                commnetIcon.setAttribute('id', 'tools-icon');
-                tools.appendChild(commnetIcon);
-                
-                //Create the third div
-                const menuIconDiv = document.createElement('div');
-                menuIconDiv.className = 'menu-icon-div';
-                toolsFrame.appendChild(menuIconDiv)
-        
-                const menuIconFrame = document.createElement('label');
-                menuIconFrame.className = 'menu-icon-frame';
-                menuIconDiv.appendChild(menuIconFrame);
+            if(Math.abs(xPosition) <= 900){
+                requestAnimationFrame(animationProcess);
+            } else{
+                removeTaskFromUI(object);
+                removeTasksFromLocaleStorage(content);
+                removeAndGetFromLS(globalUlVariable);
+            }
+        }
 
-                const inputCheckBox = document.createElement('input');
-                inputCheckBox.className = 'check';
-                inputCheckBox.setAttribute('type', 'checkbox');
-                menuIconFrame.appendChild(inputCheckBox);
-                
-                const dropDown = document.createElement('i');
-                dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
-                menuIconFrame.appendChild(dropDown);
+        function removeTaskFromUI(taskToRemove){
+            taskToRemove.parentElement.parentElement.parentElement.remove();
+        }
+    
+        function removeTasksFromLocaleStorage(task){
+            let tasks;
+    
+            //Check if there is something in the LS. If there is nothing in there set
+            //the tasks variable to an empty array and if there is something in there
+            //take it and parse it as an array into the tasks variable.
+            if(localStorage.getItem('tasks' === null)){
+                tasks = [];
+            } else {
+                tasks = JSON.parse(localStorage.getItem('tasks'));
+            }
+    
+            //Loop through the entier array(tasks) and if x(the content on the index)
+            //is equal to the task variable remove y(the index of that content)
+            tasks.forEach(function(x, y){
+                if(x === task){
+                    tasks.splice(y, 1);
+            }});
+    
+            //After the index was removed from the array set back the LS;
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+        }
+    
+        function removeAndGetFromLS(e){
+            //The function that delet the task from the UI.
+            removeTasks(e);
+            //The function that recreate all the tasks on the UI from LS.
+            getFromLS();
+    
+            function removeTasks(e){
+                let allChidren = Array.from(e.children);
+    
+                allChidren.forEach(function(x){
+                    e.removeChild(x);
+                })
+            }
+    
+            function getFromLS(){
+                let tasks;
+    
+                if(localStorage.getItem('tasks') === null){
+                    tasks = [];
+                } else{
+                    tasks = JSON.parse(localStorage.getItem('tasks'))
+                }
+            
+                tasks.forEach(function(x, y){
+                    createTask(y, x);
+                })
+        
+                function createTask(index, value) {
+                    //Create the li
+                    const li = document.createElement('li');
+                    li.className = 'li-class';
+                    //Set a different id using the index of the loop.
+                    li.setAttribute('id', `li-id${index+1}`);
+                    globalUlVariable.appendChild(li);
+                    
+                    //Create the first div
+                    const div = document.createElement('div');
+                    div.className = 'content-frame';
+                    li.appendChild(div);
+                    
+                    const content = document.createElement('p');
+                    content.className = 'content';
+                    content.appendChild(document.createTextNode(value))
+                    div.appendChild(content)
+                    
+                    //Create the second div
+                    const toolsFrame = document.createElement('div');
+                    toolsFrame.className = 'tools-frame';
+                    li.appendChild(toolsFrame);
+            
+                    const tools = document.createElement('div');
+                    tools.className = 'tools';
+                    toolsFrame.appendChild(tools);
+                    
+                    const checkIcon = document.createElement('i')
+                    checkIcon.classList = 'check-icon bx bx-check bx-md bx-tada';
+                    checkIcon.setAttribute('id', 'tools-icon');
+                    tools.appendChild(checkIcon);
+                    
+                    const rocketIcon = document.createElement('i');
+                    rocketIcon.classList = 'rocket-icon bx bxs-rocket bx-sm bx-tada';
+                    rocketIcon.setAttribute('id', 'tools-icon');
+                    tools.appendChild(rocketIcon);
+                    
+                    const starIcon = document.createElement('i');
+                    starIcon.classList = 'star-icon bx bxs-star bx-sm bx-tada';
+                    starIcon.setAttribute('id', 'tools-icon');
+                    tools.appendChild(starIcon);
+                    
+                    const commnetIcon = document.createElement('i');
+                    commnetIcon.classList = 'comment-icon bx bxs-comment-detail bx-sm bx-tada';
+                    commnetIcon.setAttribute('id', 'tools-icon');
+                    tools.appendChild(commnetIcon);
+                    
+                    //Create the third div
+                    const menuIconDiv = document.createElement('div');
+                    menuIconDiv.className = 'menu-icon-div';
+                    toolsFrame.appendChild(menuIconDiv)
+            
+                    const menuIconFrame = document.createElement('label');
+                    menuIconFrame.className = 'menu-icon-frame';
+                    menuIconDiv.appendChild(menuIconFrame);
+    
+                    const inputCheckBox = document.createElement('input');
+                    inputCheckBox.className = 'check';
+                    inputCheckBox.setAttribute('type', 'checkbox');
+                    menuIconFrame.appendChild(inputCheckBox);
+                    
+                    const dropDown = document.createElement('i');
+                    dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
+                    menuIconFrame.appendChild(dropDown);
+                }
             }
         }
     }
