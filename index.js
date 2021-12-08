@@ -441,7 +441,7 @@ function RemoveOneTask(e){
         //Seting the height of the toolsFrame to its original value(0);
         toolsFrame.style.height = `${toolsVarUp}px`;
         //Setting the scale of the menu bar under the task to its original size when deleting the task.
-        menuIconDiv.style.transform = 'scale(1, 0.3)';
+        menuIconDiv.style.transform = 'scale(1, 0.6)';
         dropDownIcon.style.opacity = '0';
 
         
