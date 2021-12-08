@@ -467,7 +467,7 @@ function RemoveOneTask(e){
             
     
             if(Math.abs(xPosition) <= 900){
-                requestAnimationFframe(animationProcess);
+                requestAnimationFrame(animationProcess);
             } else{
                 removeTaskFromUI(object);
                 removeTasksFromLocaleStorage(content);
