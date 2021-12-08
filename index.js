@@ -433,7 +433,7 @@ function RemoveOneTask(e){
         let toolsIcon = selectedLiTag.querySelectorAll('#tools-icon');
 
         //Set new values for the variables every time when the requestAniamtionFrame exeutes.
-        toolsVarUp -= 10;
+        toolsVarUp -= 5;
         opacityUp -= 1;
         
         selectedLiTag.style.borderBottomLeftRadius = '0px';
