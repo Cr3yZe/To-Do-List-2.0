@@ -80,7 +80,7 @@ body {
 }
 
 .li-class {
-    max-height: 300px;
+    max-height: 100px;
     transition: 250ms;
     width: 95%;
     margin: auto;
@@ -97,8 +97,7 @@ body {
 
 .li-class.li-class-height {
     max-height: 0px;
-    margin: 0;
-    /* position: absolute; */
+    margin: 0px;
 }
 
 li:hover > .tools-frame > .menu-icon-div {

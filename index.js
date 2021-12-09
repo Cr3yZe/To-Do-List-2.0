@@ -462,13 +462,13 @@ function RemoveOneTask(e){
         }
         
         function animationProcess(){
-            xPosition += 1;
+            xPosition += 100;
             
             object.parentElement.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
             
             //You to put 1000 as the number to create a smooth animation
             //Now it is 0 to work with the task.
-            if(Math.abs(xPosition) <=  00){
+            if(Math.abs(xPosition) <=  1000){
                 requestAnimationFrame(animationProcess);
             } else{
                 height(object);
