@@ -397,13 +397,15 @@ function RemoveOneTask(e){
     let object = e.target;
 
     //Variables for the animation of the tools menu.
-    let toolsVarUp = 45;
+    //Variable used for setting the height of the tools when open it.
+    let toolsVarUp = 44;
+    //Variable used for setting the opacity for the tools icon.
     let opacityUp = 1;
-    let rotationUp = 180;
-
+    
     //Variable that will be used to create the animation of the deletion process.    
     let xPosition = 0;
     
+    //Select the entier tools frame.
     //Save the content of the task that will be deleted.
     let content = object.parentElement.parentElement.parentElement.children[0].children[0].textContent;
     
@@ -418,178 +420,200 @@ function RemoveOneTask(e){
         
         //Set the li, that was selected to be deleted, into a variable.
         let selectedLiTag = object.parentElement.parentElement.parentElement;
+        // console.log(selectedLiTag);
         
         //Select the bar under the current task.
         let menuIconDiv = object.parentElement.parentElement.children[1];
-        //Select the entier tools frame.
         let toolsFrame = object.parentElement.parentElement;
         // //Select the div where the tools are located.
         // let tools = toolsFrame.children[0];
         //Select the drop down icon.
         let dropDownIcon = object.parentElement.parentElement.children[1].children[0].children[1];
         //Select the tools.
-        let toolsIcon = selectedLiTag.querySelectorAll('#tools-icon');
-
+        let toolsIcon = selectedLiTag.children[1].children[0].children;
+        
         //Set new values for the variables every time when the requestAniamtionFrame exeutes.
-        toolsVarUp -= 5;
+        toolsVarUp -= 4;
+        console.log(toolsVarUp); 
         opacityUp -= 1;
         
         selectedLiTag.style.borderBottomLeftRadius = '0px';
-        selectedLiTag.style.borderBottomRightRadius = '0px';
-        //Seting the height of the toolsFrame to its original value(0);
-        toolsFrame.style.height = `${toolsVarUp}px`;
+        selectedLiTag.style.borderBottomRightRadius = '0px';        
+        
         //Setting the scale of the menu bar under the task to its original size when deleting the task.
-        menuIconDiv.style.transform = 'scale(1, 0.6)';
-        dropDownIcon.style.opacity = '0';
-
+        menuIconDiv.style.transform = 'scale(0, 0)';
+        dropDownIcon.style.display = 'none';
         
         toolsIcon = Array.from(toolsIcon);
         
         toolsIcon.forEach(function(x, y){
             //Make the color of the tools to be the same with the background to not be visible
             //when the bar gets to its original for when deleting the task.
-            toolsIcon[y].style.color = 'rgb(1, 2, 92)'
+            toolsIcon[y].style.transform = 'scale(0, 0)';
         });
         
-        if(toolsVarUp >= 5){
+        //Seting the height of the toolsFrame to its original value(0);
+        toolsFrame.style.height = `${toolsVarUp}px`;
+
+        if(toolsVarUp >= 4){
             requestAnimationFrame(animationToolsFrameOff);
         } else{
             animationProcess();  
         }
         
         function animationProcess(){
-            xPosition += 50;
+            xPosition += 1;
             
             object.parentElement.parentElement.parentElement.style.transform = `translate3d(${xPosition}px, 0, 0)`;
             
-    
-            if(Math.abs(xPosition) <= 900){
+            //You to put 1000 as the number to create a smooth animation
+            //Now it is 0 to work with the task.
+            if(Math.abs(xPosition) <=  00){
                 requestAnimationFrame(animationProcess);
             } else{
-                removeTaskFromUI(object);
-                removeTasksFromLocaleStorage(content);
-                removeAndGetFromLS(globalUlVariable);
+                height(object);
             }
-        }
 
-        function removeTaskFromUI(taskToRemove){
-            taskToRemove.parentElement.parentElement.parentElement.remove();
-        }
-    
-        function removeTasksFromLocaleStorage(task){
-            let tasks;
-    
-            //Check if there is something in the LS. If there is nothing in there set
-            //the tasks variable to an empty array and if there is something in there
-            //take it and parse it as an array into the tasks variable.
-            if(localStorage.getItem('tasks' === null)){
-                tasks = [];
-            } else {
-                tasks = JSON.parse(localStorage.getItem('tasks'));
-            }
-    
-            //Loop through the entier array(tasks) and if x(the content on the index)
-            //is equal to the task variable remove y(the index of that content)
-            tasks.forEach(function(x, y){
-                if(x === task){
-                    tasks.splice(y, 1);
-            }});
-    
-            //After the index was removed from the array set back the LS;
-            localStorage.setItem('tasks', JSON.stringify(tasks))
-        }
-    
-        function removeAndGetFromLS(e){
-            //The function that delet the task from the UI.
-            removeTasks(e);
-            //The function that recreate all the tasks on the UI from LS.
-            getFromLS();
-    
-            function removeTasks(e){
-                let allChidren = Array.from(e.children);
-    
-                allChidren.forEach(function(x){
-                    e.removeChild(x);
-                })
-            }
-    
-            function getFromLS(){
-                let tasks;
-    
-                if(localStorage.getItem('tasks') === null){
-                    tasks = [];
-                } else{
-                    tasks = JSON.parse(localStorage.getItem('tasks'))
+            function height(e){
+                // let object = e.target.parentElement.parentElement.children[0];
+                // console.log(object);
+            
+                if(e.classList.contains('rocket-icon')){
+                    animateHeight(e);
                 }
             
-                tasks.forEach(function(x, y){
-                    createTask(y, x);
-                })
-        
-                function createTask(index, value) {
-                    //Create the li
-                    const li = document.createElement('li');
-                    li.className = 'li-class';
-                    //Set a different id using the index of the loop.
-                    li.setAttribute('id', `li-id${index+1}`);
-                    globalUlVariable.appendChild(li);
-                    
-                    //Create the first div
-                    const div = document.createElement('div');
-                    div.className = 'content-frame';
-                    li.appendChild(div);
-                    
-                    const content = document.createElement('p');
-                    content.className = 'content';
-                    content.appendChild(document.createTextNode(value))
-                    div.appendChild(content)
-                    
-                    //Create the second div
-                    const toolsFrame = document.createElement('div');
-                    toolsFrame.className = 'tools-frame';
-                    li.appendChild(toolsFrame);
+                function animateHeight(x){
+                    x.parentElement.parentElement.parentElement.classList.toggle('li-class-height');
+
+
+                    // removeTaskFromUI(object);
+                    // removeTasksFromLocaleStorage(content);
+                    // removeAndGetFromLS(globalUlVariable);
+
+                    function removeTaskFromUI(current){
+                        let content = current.parentElement.parentElement.parentElement;
+                        console.log(content);
+                        
+                        content.remove();
+                    }
+                
+                    function removeTasksFromLocaleStorage(task){
+                        let tasks;
+                
+                        //Check if there is something in the LS. If there is nothing in there set
+                        //the tasks variable to an empty array and if there is something in there
+                        //take it and parse it as an array into the tasks variable.
+                        if(localStorage.getItem('tasks' === null)){
+                            tasks = [];
+                        } else {
+                            tasks = JSON.parse(localStorage.getItem('tasks'));
+                        }
+                
+                        //Loop through the entier array(tasks) and if x(the content on the index)
+                        //is equal to the task variable remove y(the index of that content)
+                        tasks.forEach(function(x, y){
+                            if(x === task){
+                                tasks.splice(y, 1);
+                        }});
+                
+                        //After the index was removed from the array set back the LS;
+                        localStorage.setItem('tasks', JSON.stringify(tasks))
+                    }
             
-                    const tools = document.createElement('div');
-                    tools.className = 'tools';
-                    toolsFrame.appendChild(tools);
+                    function removeAndGetFromLS(e){
+                        //The function that delet the task from the UI.
+                        removeTasks(e);
+                        //The function that recreate all the tasks on the UI from LS.
+                        getFromLS();
+                
+                        function removeTasks(e){
+                            let allChidren = Array.from(e.children);
+                
+                            allChidren.forEach(function(x){
+                                e.removeChild(x);
+                            })
+                        }
+                
+                        function getFromLS(){
+                            let tasks;
+                
+                            if(localStorage.getItem('tasks') === null){
+                                tasks = [];
+                            } else{
+                                tasks = JSON.parse(localStorage.getItem('tasks'))
+                            }
+                        
+                            tasks.forEach(function(x, y){
+                                createTask(y, x);
+                            })
                     
-                    const checkIcon = document.createElement('i')
-                    checkIcon.classList = 'check-icon bx bx-check bx-md bx-tada';
-                    checkIcon.setAttribute('id', 'tools-icon');
-                    tools.appendChild(checkIcon);
-                    
-                    const rocketIcon = document.createElement('i');
-                    rocketIcon.classList = 'rocket-icon bx bxs-rocket bx-sm bx-tada';
-                    rocketIcon.setAttribute('id', 'tools-icon');
-                    tools.appendChild(rocketIcon);
-                    
-                    const starIcon = document.createElement('i');
-                    starIcon.classList = 'star-icon bx bxs-star bx-sm bx-tada';
-                    starIcon.setAttribute('id', 'tools-icon');
-                    tools.appendChild(starIcon);
-                    
-                    const commnetIcon = document.createElement('i');
-                    commnetIcon.classList = 'comment-icon bx bxs-comment-detail bx-sm bx-tada';
-                    commnetIcon.setAttribute('id', 'tools-icon');
-                    tools.appendChild(commnetIcon);
-                    
-                    //Create the third div
-                    const menuIconDiv = document.createElement('div');
-                    menuIconDiv.className = 'menu-icon-div';
-                    toolsFrame.appendChild(menuIconDiv)
-            
-                    const menuIconFrame = document.createElement('label');
-                    menuIconFrame.className = 'menu-icon-frame';
-                    menuIconDiv.appendChild(menuIconFrame);
-    
-                    const inputCheckBox = document.createElement('input');
-                    inputCheckBox.className = 'check';
-                    inputCheckBox.setAttribute('type', 'checkbox');
-                    menuIconFrame.appendChild(inputCheckBox);
-                    
-                    const dropDown = document.createElement('i');
-                    dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
-                    menuIconFrame.appendChild(dropDown);
+                            function createTask(index, value) {
+                                //Create the li
+                                const li = document.createElement('li');
+                                li.className = 'li-class';
+                                //Set a different id using the index of the loop.
+                                li.setAttribute('id', `li-id${index+1}`);
+                                globalUlVariable.appendChild(li);
+                                
+                                //Create the first div
+                                const div = document.createElement('div');
+                                div.className = 'content-frame';
+                                li.appendChild(div);
+                                
+                                const content = document.createElement('p');
+                                content.className = 'content';
+                                content.appendChild(document.createTextNode(value))
+                                div.appendChild(content)
+                                
+                                //Create the second div
+                                const toolsFrame = document.createElement('div');
+                                toolsFrame.className = 'tools-frame';
+                                li.appendChild(toolsFrame);
+                        
+                                const tools = document.createElement('div');
+                                tools.className = 'tools';
+                                toolsFrame.appendChild(tools);
+                                
+                                const checkIcon = document.createElement('i')
+                                checkIcon.classList = 'check-icon bx bx-check bx-md bx-tada';
+                                checkIcon.setAttribute('id', 'tools-icon');
+                                tools.appendChild(checkIcon);
+                                
+                                const rocketIcon = document.createElement('i');
+                                rocketIcon.classList = 'rocket-icon bx bxs-rocket bx-sm bx-tada';
+                                rocketIcon.setAttribute('id', 'tools-icon');
+                                tools.appendChild(rocketIcon);
+                                
+                                const starIcon = document.createElement('i');
+                                starIcon.classList = 'star-icon bx bxs-star bx-sm bx-tada';
+                                starIcon.setAttribute('id', 'tools-icon');
+                                tools.appendChild(starIcon);
+                                
+                                const commnetIcon = document.createElement('i');
+                                commnetIcon.classList = 'comment-icon bx bxs-comment-detail bx-sm bx-tada';
+                                commnetIcon.setAttribute('id', 'tools-icon');
+                                tools.appendChild(commnetIcon);
+                                
+                                //Create the third div
+                                const menuIconDiv = document.createElement('div');
+                                menuIconDiv.className = 'menu-icon-div';
+                                toolsFrame.appendChild(menuIconDiv)
+                        
+                                const menuIconFrame = document.createElement('label');
+                                menuIconFrame.className = 'menu-icon-frame';
+                                menuIconDiv.appendChild(menuIconFrame);
+                
+                                const inputCheckBox = document.createElement('input');
+                                inputCheckBox.className = 'check';
+                                inputCheckBox.setAttribute('type', 'checkbox');
+                                menuIconFrame.appendChild(inputCheckBox);
+                                
+                                const dropDown = document.createElement('i');
+                                dropDown.classList = 'drop-down bx bxs-chevrons-down bx-xs';
+                                menuIconFrame.appendChild(dropDown);
+                            }
+                        }
+                    }
                 }
             }
         }

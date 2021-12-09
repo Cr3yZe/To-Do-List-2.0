@@ -72,6 +72,7 @@ body {
 }
 
 .ul-class {
+    border: 3px solid green;
     width: 100%;
     list-style-type: none;
     padding-top: 10px;
@@ -79,6 +80,8 @@ body {
 }
 
 .li-class {
+    max-height: 300px;
+    transition: 250ms;
     width: 95%;
     margin: auto;
     /* background-color: red; */
@@ -90,7 +93,12 @@ body {
     border-top-right-radius: 4px;
     word-wrap: break-word;
     position: relative;
-    transition: 20ms;
+}
+
+.li-class.li-class-height {
+    max-height: 0px;
+    margin: 0;
+    /* position: absolute; */
 }
 
 li:hover > .tools-frame > .menu-icon-div {
@@ -103,17 +111,25 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 }
 
 .content-frame {
+    /* If you set a big max-height the animation of the height will be too fast!!!! */
+    max-height: 600px;
+    transition: 1s;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     padding: 15px 50px 15px 20px;
 }
 
+/* .content-frame.content-frame-height {
+    max-height: 0;
+    padding: 0;
+} */
+
 .content {
+    /* margin: 15px 50px 15px 20px; */
     text-align: justify;
     place-self: center;
     font-size: 1em;
-}
-
+} 
 
 .tools-frame {
     background-color: var(--main-background-color-tools);
@@ -128,6 +144,7 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 }
 
 .tools {
+    /* height: 0; */
     display: grid;
     align-items: center;
     justify-content: center;
@@ -149,6 +166,10 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
     transition: 150ms;
 }
 
+/* .menu-icon-div.menu-icon-div-height {
+    transform: scale(1, 1);
+} */
+
 .menu-icon-frame {
     border-radius: 4px;
     /* position: absolute; */
@@ -159,6 +180,10 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
     /* transform: scale(.8, .9); */
     /* display: none; */
 }
+
+/* .menu-icon-frame.menu-icon-frame-height {
+    height: 0;
+} */
 
 .check {
     display: none;
@@ -181,11 +206,14 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
     display: flex !important;
     justify-content: center;
     align-items: center;
+    /* transform: scale(0, 0); */
 }
 
 .bx-check:hover {
     color: greenyellow;
 }
+
+/* .check-icon.scale-zero */
 
 .rocket-icon {
     opacity: 0;
