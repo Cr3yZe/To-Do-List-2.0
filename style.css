@@ -21,12 +21,10 @@ body {
 }
 
 .div-title {
-    /* border: 2px solid white; */
     margin: auto;
     margin-bottom: 10px;
-    text-align: center;
     padding: 80px;
-    /* border-bottom: 1px solid white; */
+    text-align: center;
 }
 
 .h1-title {
@@ -36,7 +34,6 @@ body {
 
 .frame {
     width: 100%;
-    /* border: 1px solid white; */
     margin: auto;
     padding: 10px;
 }
@@ -67,30 +64,25 @@ body {
 }
 
 .wall-frame {
-    width: 100%;
     overflow: hidden;
 }
 
 .ul-class {
-    border: 3px solid green;
-    width: 100%;
     list-style-type: none;
     padding-top: 10px;
     margin-bottom: 20px;
 }
 
 .li-class {
-    max-height: 100px;
-    transition: 250ms;
+    background-color: var(--main-background-color-tasks);
+    max-height: 200px;
     width: 95%;
     margin: auto;
-    /* background-color: red; */
-    background-color: var(--main-background-color-tasks);
     margin-bottom: 25px;
-    /* border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px; */
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    /* border-top-left-radius: 4px;
+    border-top-right-radius: 4px; */
+    border-radius: 4px !important;
+    transition: 250ms;
     word-wrap: break-word;
     position: relative;
 }
@@ -101,7 +93,7 @@ body {
 }
 
 li:hover > .tools-frame > .menu-icon-div {
-    transform: scale(1, 1.1);
+    transform: scale(1, 1);
 }
 
 li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-down {
@@ -112,19 +104,13 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 .content-frame {
     /* If you set a big max-height the animation of the height will be too fast!!!! */
     max-height: 600px;
-    transition: 1s;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    padding: 15px 50px 15px 20px;
+    transition: 1s;
 }
 
-/* .content-frame.content-frame-height {
-    max-height: 0;
-    padding: 0;
-} */
-
 .content {
-    /* margin: 15px 50px 15px 20px; */
+    padding: 15px 50px 15px 20px;
     text-align: justify;
     place-self: center;
     font-size: 1em;
@@ -132,18 +118,17 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 
 .tools-frame {
     background-color: var(--main-background-color-tools);
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
     height: 0;
     width: 100%;
-    /* bottom: -35px; */
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    position: relative;
     display: grid;
     grid-template-columns: 10% auto 10%;
     grid-template-rows: 90% auto;
 }
 
 .tools {
-    /* height: 0; */
     display: grid;
     align-items: center;
     justify-content: center;
@@ -155,34 +140,26 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 
 .menu-icon-div {
     background-color: var(--main-background-color-tools);
+    width: 100%;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     grid-column-start: 1;
     grid-column-end: 4;
     grid-row: 2 / 3;
-    transform: scale(1, 0.6);
-    transform-origin: top;
+    position: absolute;
+    bottom: 0;
+    transform: scale(1, 0.3);
+    transform-origin: bottom;
     transition: 150ms;
 }
 
-/* .menu-icon-div.menu-icon-div-height {
-    transform: scale(1, 1);
-} */
-
 .menu-icon-frame {
     border-radius: 4px;
-    /* position: absolute; */
+    z-index: 1;
     display: grid;
     justify-content: center;
     align-content: center;
-    z-index: 1;
-    /* transform: scale(.8, .9); */
-    /* display: none; */
 }
-
-/* .menu-icon-frame.menu-icon-frame-height {
-    height: 0;
-} */
 
 .check {
     display: none;
@@ -190,8 +167,8 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 
 .drop-down {
     color: black;
-    transition: 150ms;
     opacity: 0;
+    transition: 150ms;
 }
 
 .drop-down:hover {
@@ -199,28 +176,25 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 }
 
 .check-icon {
-    opacity: 0;
     grid-column: 1 / 2;
-    transition: 250ms;
     display: flex !important;
     justify-content: center;
     align-items: center;
-    /* transform: scale(0, 0); */
+    opacity: 0;
+    transition: 250ms;
 }
-
+    
 .bx-check:hover {
     color: greenyellow;
 }
 
-/* .check-icon.scale-zero */
-
 .rocket-icon {
-    opacity: 0;
     grid-column: 2 / 3;
-    transition: 250ms;
     display: flex !important;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: 250ms;
 }
 
 .rocket-icon:hover {
@@ -228,12 +202,12 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 }  
 
 .star-icon {
-    opacity: 0;
     grid-column: 3 / 4;
-    transition: 250ms;
     display: flex !important;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: 250ms;
 }
 
 .star-icon:hover {
@@ -241,12 +215,12 @@ li:hover > div.tools-frame > div.menu-icon-div > label.menu-icon-frame > i.drop-
 }
 
 .comment-icon {
-    opacity: 0;
     grid-column: 4 / 5;
-    transition: 250ms;
     display: flex !important;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: 250ms;
 }
 
 .comment-icon:hover {
